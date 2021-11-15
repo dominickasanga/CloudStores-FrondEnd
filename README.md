@@ -19,6 +19,5 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# CloudStores-FrondEnd
+front end for cloudstoresmw.com (view transformations)

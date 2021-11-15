@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <v-layout column>
+      <v-flex xs6 offset-xs3>
+        <div class="white elevation">
+          <v-toolbar flat dense class="cyan" dark>
+            <v-toolbar-title>Register</v-toolbar-title>
+          </v-toolbar>
+          <div class=" pr-4 pb-2 md-w">
+            <v-text-field
+            type="email"
+            name="email"
+            v-model="email"
+            placeholder="email"/>
+            <br>
+            <v-text-field
+            type="password"
+            name="password"
+            v-model="password"
+            placeholder="password"/>
+            <br>
+            <div class="error" v-html="error"/>
+            <br>
+            <v-btn class="cyan"
+            @click="register">Register</v-btn>
+          </div>
+        </div>
+      </v-flex>
+    </v-layout>
+  </div>
+</template>
+
+<script>
+import AuthenticationService from '../services/AuthenticationService'
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      error: null
+    }
+  },
+  methods: {
+    async register () {
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        })
+      } catch (error) {
+        this.error = error.response.data.error
+      }
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.error {
+  color: red;
+}
+.md-w {
+  width: 50%;
+  margin-left: 20%;
+}
+</style>

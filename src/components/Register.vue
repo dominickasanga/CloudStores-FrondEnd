@@ -6,18 +6,20 @@
           <v-toolbar flat dense class="cyan" dark>
             <v-toolbar-title>Register</v-toolbar-title>
           </v-toolbar>
-          <div class=" pr-4 pb-2">
+          <div class=" pr-4 pl-4 pb-2">
+            <div mm>
             <v-text-field
             type="email"
             name="email"
             v-model="email"
             placeholder="email"/>
             <br>
-            <v-text-field
+            <v-text-field 
             type="password"
             name="password"
             v-model="password"
             placeholder="password"/>
+            </div>
             <br>
             <div class="error1" v-html="error"/>
             <br>
@@ -60,5 +62,8 @@ export default {
 <style scoped>
 .error1 {
   color: red;
+}
+.mm {
+  margin: 34px;
 }
 </style>

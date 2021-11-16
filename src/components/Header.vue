@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed  dark>
+  <v-toolbar fixed  dark  elevation="4">
     <v-toolbar-title class="mr-4">
       <router-link 
         class="home"
@@ -7,7 +7,7 @@
         :to="{
           name: 'songs'
         }">
-        TabTracker
+        CloudStoresMW
       </router-link>
     </v-toolbar-title>
 

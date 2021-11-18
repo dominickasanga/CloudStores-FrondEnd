@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HelloWorld from './components/HelloWorld'
+import Home from './components/Home'
 import App from './App.vue'
 import register from './components/Register'
+import Login from './components/Login'
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
@@ -28,10 +29,17 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: HelloWorld
+      name: 'root',
+      component: Home
+    },
+    {
+      path: '/',
+      name: 'login',
+      component: Login
     },
     {
       path: '/register',
+      name: 'register',
       component: register
     },
     

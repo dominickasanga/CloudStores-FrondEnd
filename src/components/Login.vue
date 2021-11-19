@@ -2,12 +2,7 @@
   <div>
     <v-layout column>
       <v-flex xs6 offset-xs3>
-        <div class="white elevation">
-          <v-toolbar flat dense class="cyan" dark>
-            <v-toolbar-title>Login</v-toolbar-title>
-          </v-toolbar>
-          <div class=" pr-4 pl-4 pb-2">
-            <div mm>
+        <panel title="Login">
             <v-text-field
             type="email"
             name="email"
@@ -19,14 +14,12 @@
             name="password"
             v-model="password"
             placeholder="password"/>
-            </div>
             <br>
             <div class="error1" v-html="error"/>
             <br>
             <v-btn class="cyan"
             @click="login">Login</v-btn>
-          </div>
-        </div>
+        </panel>
       </v-flex>
     </v-layout>
   </div>
@@ -34,8 +27,10 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
+import Panel from './Panel.vue'
 
 export default {
+  components: { Panel },
   data() {
     return {
       email: '',
@@ -64,8 +59,5 @@ export default {
 <style scoped>
 .error1 {
   color: red;
-}
-.mm {
-  margin: 34px;
 }
 </style>

@@ -2,12 +2,9 @@
   <div>
     <v-layout column>
       <v-flex xs6 offset-xs3>
-        <div class="white elevation">
-          <v-toolbar flat dense class="cyan" dark>
-            <v-toolbar-title>Register</v-toolbar-title>
-          </v-toolbar>
-          <div class=" pr-4 pl-4 pb-2">
-            <div mm>
+        <panel title="Register" >
+          <form>
+          <div class="">
             <v-text-field
             type="email"
             name="email"
@@ -19,14 +16,14 @@
             name="password"
             v-model="password"
             placeholder="password"/>
-            </div>
             <br>
             <div class="error1" v-html="error"/>
             <br>
             <v-btn class="cyan"
             @click="register">Register</v-btn>
           </div>
-        </div>
+          </form>
+        </panel>
       </v-flex>
     </v-layout>
   </div>
@@ -34,6 +31,7 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
+import panel from '../components/Panel.vue'
 
 export default {
   data() {
@@ -56,6 +54,9 @@ export default {
         this.error = error.response.data.error
       }
     }
+  },
+  components: {
+    panel
   }
 }
 </script>
@@ -64,8 +65,5 @@ export default {
 <style scoped>
 .error1 {
   color: red;
-}
-.mm {
-  margin: 34px;
 }
 </style>

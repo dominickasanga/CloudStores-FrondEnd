@@ -11,8 +11,9 @@
     <v-toolbar-items>
       <v-btn 
         flat 
-        dark>
-        Browse
+        dark
+        @click="navigateTo({name: 'root'})">
+        CloudStoresMW
       </v-btn>
     </v-toolbar-items>
 
@@ -30,7 +31,8 @@
       </v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn"
         flat 
-        dark>
+        dark
+        @click="logout">
         Log Out
       </v-btn>
     </v-toolbar-items>
@@ -40,8 +42,18 @@
 <script>
 export default {
   methods: {
-    navigateTo(route) {
+    navigateTo(route){
+      console.log(route)
       this.$router.push(route)
+    },
+    logout(){
+      //unset login state
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      //redirect
+      this.$router.push({
+        name: 'root'
+      })
     }
   }
 }

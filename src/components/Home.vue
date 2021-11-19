@@ -1,16 +1,29 @@
 <template>
-  <v-layout column>
-    <v-flex xs6 offset-xs3>
-      <panel title="Home" />
-    </v-flex>
-  </v-layout>
+      <panel title="Home">
+         <div v-for="item in items" :key="item.id">
+          {{item.name}}
+          {{item.descrpition}}
+      </div>
+      </panel>
+
 </template>
 
 <script>
 import panel from './Panel.vue'
+import itemsService from '../services/ItemsService'
 export default {
   components: {
     panel
+  },
+  data() {
+    return {
+      items: null
+    }
+  },
+  async mounted() {
+    // (await itemsService.index()).data
+    let response = await itemsService.index()
+    this.items = response.data;
   }
 }
 </script>

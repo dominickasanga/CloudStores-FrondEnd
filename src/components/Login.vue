@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-layout column>
-      <v-flex xs6 offset-xs3>
         <panel title="Login">
             <v-text-field
             type="email"
@@ -20,8 +18,6 @@
             <v-btn class="cyan"
             @click="login">Login</v-btn>
         </panel>
-      </v-flex>
-    </v-layout>
   </div>
 </template>
 

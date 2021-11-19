@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-layout column>
-      <v-flex xs6 offset-xs3>
         <panel title="Register" >
           <form>
           <div class="">
@@ -24,8 +22,6 @@
           </div>
           </form>
         </panel>
-      </v-flex>
-    </v-layout>
   </div>
 </template>
 

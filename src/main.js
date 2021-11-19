@@ -4,6 +4,7 @@ import Home from './components/Home'
 import App from './App.vue'
 import register from './components/Register'
 import Login from './components/Login'
+import AddItem from './components/AddItem'
 import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync'
 import store from './storeState/store'
@@ -43,6 +44,11 @@ const router = new VueRouter({
       name: 'login',
       component: Login
     },
+    {
+      path: '/addItem',
+      name: 'addItem',
+      component: AddItem
+    }
     
   ]
 })

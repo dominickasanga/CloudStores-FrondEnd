@@ -34,7 +34,7 @@ export default {
   overflow: none;
 }
 body {
-  overflow: hidden;
+  overflow: ;
 }
 .danger-alert {
   color: red;

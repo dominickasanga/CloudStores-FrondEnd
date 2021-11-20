@@ -5,6 +5,7 @@ import App from './App.vue'
 import register from './components/Register'
 import Login from './components/Login'
 import AddItem from './components/AddItem'
+import ViewItem from './components/ViewItem'
 import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync'
 import store from './storeState/store'
@@ -48,6 +49,11 @@ const router = new VueRouter({
       path: '/addItem',
       name: 'addItem',
       component: AddItem
+    },
+    {
+      path: '/Item/:itemId',
+      name: 'item',
+      component: ViewItem
     }
     
   ]
@@ -55,7 +61,7 @@ const router = new VueRouter({
 
 
 Vue.config.productionTip = false
-
+ 
 sync(store, router)
 
 new Vue({

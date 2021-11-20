@@ -7,16 +7,22 @@
                     <panel>
                         <v-text-field
                         label="name"
+                        required
+                        :rules="[rules.required]"
                         v-model="item.name"/>
                         <br>
 
                         <v-text-field
                         label="sku"
+                        required
+                        :rules="[rules.required]"
                         v-model="item.sku"/>
                         <br>
 
                         <v-text-field
                         label="Image Url"
+                        required
+                        :rules="[rules.required]"
                         v-model="item.productImageUrl"/>
                     </panel>
                 </v-flex>
@@ -25,12 +31,16 @@
                     <panel>
                         <v-text-field
                         label="descrption"
+                        required
+                        :rules="[rules.required]"
                         multi-line
                         v-model="item.description"/>
                         <br>
 
                         <v-text-field
                         label="tab"
+                        required
+                        :rules="[rules.required]"
                         v-model="item.tab"/>
                         <br>
 
@@ -64,13 +74,24 @@ export default {
                 productImageUrl: null,
                 tab: null
             },
-            error: null
+            error: null,
+            rules: {
+              required: (value) => !!value || 'Required.'
+            }
         }
     },
     methods: {
         async addProduct() {
+            this.error = null
+            const areAllFieldsFilledIn = Object
+               .keys(this.item)
+               .every(key => !!this.item[key])
+
+            if(!areAllFieldsFilledIn) {
+                this.error = "Please fill in all the required fields."
+                return
+            }
             try {
-                console.log('Hello')
                 await itemsServive.post(this.item)
                 this.$router.push({
                 name: 'root'

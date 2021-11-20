@@ -1,11 +1,6 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from './components/Home'
+import Router from './router/index'
 import App from './App.vue'
-import register from './components/Register'
-import Login from './components/Login'
-import AddItem from './components/AddItem'
-import ViewItem from './components/ViewItem'
 import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync'
 import store from './storeState/store'
@@ -24,40 +19,8 @@ Vue.use(Vuetify, {
   }
 });
 
-Vue.use(VueRouter)
 
-const router = new VueRouter({
-  mode: 'history',
-
-  routes: [
-    {
-      path: '/',
-      name: 'root',
-      component: Home
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: register
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/addItem',
-      name: 'addItem',
-      component: AddItem
-    },
-    {
-      path: '/Item/:itemId',
-      name: 'item',
-      component: ViewItem
-    }
-    
-  ]
-})
+const router = Router;
 
 
 Vue.config.productionTip = false

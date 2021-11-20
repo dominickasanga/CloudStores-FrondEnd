@@ -1,16 +1,40 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
-// import Register from '../components/Register'
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from '../components/Home'
+import Register from '../components/Register'
+import Login from '../components/Login'
+import AddItem from '../components/AddItem'
+import ViewItem from '../components/ViewItem'
 
-// Vue.use(Router)
+Vue.use(Router)
 
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/register',
-//       name: 'register',
-//       component: Register
-//     }
-//   ]
-// })
-//TODO--!
+export default new Router({
+    mode: 'history',
+    routes: [
+        {
+          path: '/',
+          name: 'root',
+          component: Home
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: Register
+        },
+        {
+          path: '/login',
+          name: 'login',
+          component: Login
+        },
+        {
+          path: '/addItem',
+          name: 'addItem',
+          component: AddItem
+        },
+        {
+          path: '/Item/:itemId',
+          name: 'item',
+          component: ViewItem
+        }  
+      ]
+})

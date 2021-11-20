@@ -11,5 +11,9 @@ export default {
 
     show(itemId) {
         return Api().get(`items/${itemId}`)
+    },
+
+    put(item,itemId) {
+        return Api().put(`items/${itemId}`,item)
     }
 }

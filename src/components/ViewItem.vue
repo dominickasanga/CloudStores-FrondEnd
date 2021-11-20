@@ -14,6 +14,17 @@
                 <div class="product-tab">
                  {{item.tab}}
                </div>
+               <br>
+                <v-btn class="cyan"
+                @click="navigateTo(
+                    {
+                     name: 'item-edit',
+                     params: {
+                         itemId: item.id
+                     }
+                    }
+                  )">
+                Edit</v-btn>
              </v-flex>
 
              <v-flex xs5>
@@ -45,6 +56,11 @@ export default {
     async mounted() {
         const itemId = this.$store.state.route.params.itemId
         this.item = (await ItemsService.show(itemId)).data
+    },
+    methods: {
+        navigateTo(route) {
+            this.$router.push(route);
+        }
     }
 }
 </script>

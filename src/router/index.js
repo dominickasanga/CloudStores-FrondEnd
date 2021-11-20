@@ -5,6 +5,7 @@ import Register from '../components/Register'
 import Login from '../components/Login'
 import AddItem from '../components/AddItem'
 import ViewItem from '../components/ViewItem'
+import EditProduct from '../components/EditProduct'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
           path: '/Item/:itemId',
           name: 'item',
           component: ViewItem
-        }  
+        },
+        {
+          path: '/Item/:itemId/edit',
+          name: 'item-edit',
+          component: EditProduct
+        } 
       ]
 })

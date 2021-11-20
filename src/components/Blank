@@ -23,4 +23,5 @@ export default {
 <div class="error1" v-html="error"/>
 <br>
 <v-btn class="cyan"
-@click="register">Register</v-btn>
+@click="register">
+Register</v-btn>

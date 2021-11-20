@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import Panel from './Panel.vue'
 import ItemsService from '../services/ItemsService'
 export default {
     data() {
@@ -48,7 +47,6 @@ export default {
         }
     },
     components: {
-        Panel
     },
     props: [
         

@@ -59,11 +59,9 @@
 </template>
 
 <script>
-import Panel from './Panel.vue'
 import itemsServive from '../services/ItemsService'
 export default {
     components: {
-        Panel
     },
     data() { 
         return { 

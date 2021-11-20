@@ -23,10 +23,9 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
-import Panel from './Panel.vue'
 
 export default {
-  components: { Panel },
+  components: {  },
   data() {
     return {
       email: '',

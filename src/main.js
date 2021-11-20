@@ -5,6 +5,9 @@ import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync'
 import store from './storeState/store'
 import 'vuetify/dist/vuetify.min.css';
+import Panel from './components/Common/Panel'
+
+Vue.component('panel',Panel)
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {

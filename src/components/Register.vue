@@ -27,7 +27,6 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
-import panel from '../components/Panel.vue'
 
 export default {
   data() {
@@ -52,7 +51,6 @@ export default {
     }
   },
   components: {
-    panel
   }
 }
 </script>

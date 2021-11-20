@@ -16,14 +16,14 @@
                </div>
                <br>
                 <v-btn class="cyan"
-                @click="navigateTo(
-                    {
-                     name: 'item-edit',
-                     params: {
-                         itemId: item.id
-                     }
+                :to="{
+                  name: 'item-edit',
+                  params () {
+                    return {
+                      itemId: item.id
                     }
-                  )">
+                  }
+                }">
                 Edit</v-btn>
              </v-flex>
 

@@ -3,19 +3,13 @@
     <v-toolbar-title class="mr-4">
       <router-link 
         class="home"
-        tag="span">
+        tag="span"
+        :to="{
+          name: 'root'
+        }">
         CloudStoresMW
       </router-link>
     </v-toolbar-title>
-
-    <v-toolbar-items>
-      <v-btn 
-        flat 
-        dark
-        @click="navigateTo({name: 'root'})">
-        CloudStoresMW
-      </v-btn>
-    </v-toolbar-items>
 
     <v-spacer></v-spacer>
 
@@ -25,8 +19,13 @@
         Login
       </v-btn>
       
-      <v-btn flat dark v-if="!$store.state.isUserLoggedIn"
-       @click="navigateTo({name: 'register'})">
+      <v-btn 
+      flat dark
+      v-if="!$store.state.isUserLoggedIn"
+      tag="span"
+      :to="{
+        name: 'register'
+      }">
         Sign Up 
       </v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn"

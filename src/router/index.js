@@ -41,6 +41,10 @@ export default new Router({
           path: '/Item/:itemId/edit',
           name: 'item-edit',
           component: EditProduct
+        },
+        {
+          path: '*',
+          component: Home
         } 
       ]
 })

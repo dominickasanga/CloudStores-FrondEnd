@@ -10,6 +10,7 @@
   </v-layout>
 </template>
 <script>
+import _ from 'lodash'
 export default {
   components: {
   },
@@ -23,7 +24,7 @@ export default {
   async mounted() {
   },
   watch: {
-    search(value) {
+    search: _.debounce(async function (value) {
       const route = {
         name: 'root'
       }
@@ -34,7 +35,7 @@ export default {
       }
       this.$router.push(route)
       console.log(value)
-    },
+    }, 700),
     '$route.query.search': {
       immediate: true,
       handler (value) {

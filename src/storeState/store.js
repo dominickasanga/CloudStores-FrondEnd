@@ -1,10 +1,14 @@
 import Vue from "vue";
 import Vuex from 'vuex'
+import CreatePersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     strict: true,
+    plugins: [
+        CreatePersistedState()
+    ],
     state: {
         token: null,
         user: null,

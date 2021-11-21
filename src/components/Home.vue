@@ -1,6 +1,9 @@
 <template>
   <v-layout>
-    <v-flex xs7 offset-xs2>
+    <v-flex xs3>
+      <booked-items/>
+    </v-flex>
+    <v-flex xs7 offset-xs2 class="ml-2">
       <search/>
       <br>
       <products/>
@@ -11,10 +14,12 @@
 <script>
 import Products from './Products.vue'
 import Search from './SearchProducts.vue'
+import BookedItems from './BookedItems.vue'
 export default {
   components: {
     Products,
-    Search
+    Search,
+    BookedItems
   },
 }
 </script>

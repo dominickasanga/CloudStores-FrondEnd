@@ -27,7 +27,7 @@
                 Edit</v-btn>
 
               <v-btn
-              v-if="isUserLoggedIn && !bookmark"
+              v-if="isUserLoggedIn && !isBookmarked"
               dark
               class="cyan"
               @click="setAsBookmarked">
@@ -35,7 +35,7 @@
               </v-btn>
 
                             <v-btn
-              v-if="isUserLoggedIn && bookmark"
+              v-if="isUserLoggedIn && isBookmarked"
               dark
               class="cyan"
               @click="unSetAsBookmarked">
@@ -83,14 +83,20 @@ export default {
         const itemId = this.$store.state.route.params.itemId
         this.item = (await ItemsService.show(itemId)).data
 
-        const bookmark = (await BooKmarkService.index({
+        this.bookmark = (await BooKmarkService.index({
           itemId: itemId,
           userId: this.$store.state.user.id
         })).data
-        this.bookmark = bookmark
-        this.isBookmarked = !!bookmark
 
-        console.log("bookmark55: ",this.item.id)
+        if (this.bookmark.length == 0)
+        this.isBookmarked = false
+        else
+        this.isBookmarked = true
+        
+        //this.isBookmarked = !!this.bookmark[0].id
+
+        console.log("booK : ", this.bookmark.length)
+        console.log("STatus: ", this.isBookmarked)
     },
     methods: {
         navigateTo(route) {
@@ -104,6 +110,8 @@ export default {
               itemId: this.item.id,
               userId: this.$store.state.user.id
             })).data
+            if (this.bookmark.length != 0)
+            this.$router.go(this.$router.currentRoute)
           } catch(err) {
             console.log(err)
           }
@@ -112,8 +120,12 @@ export default {
 
         async unSetAsBookmarked() {
           try {
-            this.bookmark = await BooKmarkService.delete(this.bookmark.id)
-            this.bookmark = null
+            this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
+            
+            let cond = !!this.bookmark
+            if(cond)
+            this.$router.go(this.$router.currentRoute)
+            
           } catch(err) {
             console.log(err)
           }

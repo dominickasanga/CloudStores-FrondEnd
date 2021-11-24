@@ -8,10 +8,10 @@
            :items="bookmarks">
            <template slot="items" scope="props">
                <td class="text-xs-right">
-                   {{props.item.title}}
+                   {{props.item.Item.id}}
                </td>
                 <td class="text-xs-right">
-                   {{props.item.name}}
+                   {{props.item.Item.name}}
                </td>
            </template>
           </v-data-table>
@@ -42,16 +42,7 @@ export default {
         sortBy: 'date',
         descending: 'true'
       },
-      bookmarks: [
-          {
-            title: 'hello world',
-            name: 'Testing'
-          },
-          {
-            title: 'hello world',
-            name: 'Testing'
-          }
-      ],
+      bookmarks: [],
       items: null
     }
   },
@@ -65,7 +56,7 @@ export default {
           this.bookmarks = (await BookMarkService.index({
               userId: this.$store.state.user.id
           })).data
-          console.log("her:",this.bookmarks.itemId)
+          console.log("her:",this.bookmarks.length)
       }
   },
   computed: {

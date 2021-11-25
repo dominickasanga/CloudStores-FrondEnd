@@ -7,6 +7,8 @@
       <search/>
       <br>
       <products/>
+      <br>
+      <catagories/>
     </v-flex>
   </v-layout>
 </template>
@@ -15,11 +17,13 @@
 import Products from './Products.vue'
 import Search from './SearchProducts.vue'
 import BookedItems from './BookedItems.vue'
+import Catagories from './Common/Catagories.vue'
 export default {
   components: {
     Products,
     Search,
-    BookedItems
+    BookedItems,
+    Catagories
   },
 }
 </script>

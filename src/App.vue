@@ -9,16 +9,19 @@
           <router-view></router-view>
         </v-container>
       </v-main>
+      <client-footer/>
     </v-app>
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/Header.vue'
+import ClientFooter from './components/Common/ClientFooter.vue'
 export default {
   name: 'app',
   components: {
-    PageHeader
+    PageHeader,
+    ClientFooter
   }
 }
 </script>
@@ -33,9 +36,7 @@ export default {
   margin-top: 60px;
   overflow: none;
 }
-body {
-  overflow: ;
-}
+
 .danger-alert {
   color: red;
 }

@@ -1,11 +1,16 @@
 <template>
   <v-layout>
-    <v-flex>
-      <panel title="Search">
-         <v-text-field
-            label="Find"
-            v-model="search"/>
-      </panel>
+    <v-flex  xs8 offset-xs1 class="ml-9 search">
+         
+        
+  
+      <v-text-field
+            class="search"
+            prepend-icon="search"
+            placeholder="Search"
+            v-model="search">
+         </v-text-field>
+          
     </v-flex>
   </v-layout>
 </template>
@@ -49,5 +54,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.search {
+  
+}
 </style>

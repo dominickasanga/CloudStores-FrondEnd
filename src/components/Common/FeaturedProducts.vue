@@ -20,7 +20,7 @@
                   <v-flex>
                   <div>
                     <img class="item-image" :src="item.productImageUrl"/>
-
+                     
                     <div class="item-name">
                     {{item.name}} 
                     </div>
@@ -83,17 +83,15 @@ export default {
   border: 3px solid green;
   padding: 10px; */
   cursor: pointer;
-  background-color: rgb(31, 30, 30);
   position: relative;
   text-align: center;
-  color: rgb(207, 34, 34);
+  color: rgb(82, 79, 79);
   
 }
 .item-image {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 
-    width: 100%;
     height: 102%;
 
 }

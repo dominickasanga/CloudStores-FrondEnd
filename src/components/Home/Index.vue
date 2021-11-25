@@ -2,6 +2,7 @@
   <v-layout>
     <v-flex>
       <search/>
+      <slider/>
       <v-flex xs9 offset-xs1>
       <home-content/>
     </v-flex>
@@ -12,10 +13,12 @@
 <script>
 import Search from '../SearchProducts.vue'
 import HomeContent from './HomeContent.vue'
+import Slider from '../Slider.vue'
 export default {
   components: {
     Search,
-    HomeContent
+    HomeContent,
+    Slider
   },
 }
 </script>

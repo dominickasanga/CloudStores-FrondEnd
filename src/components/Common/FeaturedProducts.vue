@@ -39,6 +39,7 @@
 
 <script>
 import itemsService from '../../services/ItemsService'
+import {mapState} from 'vuex'
 export default {
   components: {
   },
@@ -62,8 +63,19 @@ export default {
       async handler (value) {
         this.items = (await itemsService.index(value)).data
       }
+    },
+    categoryId: {
+      immediate: true,
+      async handler (value) {
+        this.items = (await itemsService.index(value)).data
+      }
     }
-  }
+  },
+  computed: {
+    ...mapState([
+    'categoryId'
+    ])
+  },
 }
 </script>
 

@@ -5,9 +5,11 @@
 
           <v-layout class="cate-ls">
               <ul id="example-1">
-                <li class="site-nav__home" >Home</li>
+                <li class="site-nav__home"
+                @click="loadCatelog(null)">Home</li>
                 <li v-for="category in categories"
-                class="site-nav__item "
+                class="site-nav__item"
+                @click="loadCatelog(category.id)"
                 :key="category.id">
                     {{ category.name }}
                 </li>
@@ -25,12 +27,17 @@ export default {
   },
   data() {
     return {
-      categories: null
+      categories: null,
+      categoryId: null
     }
   },
   methods: {
     navigateTo(route) {
       this.$router.push(route)
+    },
+    loadCatelog(id) {
+      this.categoryId = id;
+      this.$store.dispatch('setCategoryId', id)
     }
   },
   async mounted() {

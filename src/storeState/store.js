@@ -12,7 +12,8 @@ export default new Vuex.Store({
     state: {
         token: null,
         user: null,
-        isUserLoggedIn: false
+        isUserLoggedIn: false,
+        categoryId: null
     },
 
     mutations: {
@@ -27,7 +28,10 @@ export default new Vuex.Store({
         },
         setUser (state, user) {
             state.user = user
-        }
+        },
+        setCategoryId (state,id) {
+            state.categoryId = id
+        } 
     },
 
     actions: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
         },
         setUser({commit}, user) {
             commit('setUser', user)
+        },
+        setCategoryId ({commit},id) {
+            commit('setCategoryId',id)
         }
     }
 })

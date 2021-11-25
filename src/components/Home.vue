@@ -1,14 +1,19 @@
 <template>
   <v-layout>
-    <v-flex xs3>
-      <booked-items/>
+    
+
+    <v-flex>
+      <search/>
+      <v-flex>
+            <v-flex xs3>
+      <categories-list/>
     </v-flex>
     <v-flex xs7 offset-xs2 class="ml-2">
-      <search/>
-      <br>
       <products/>
       <br>
       <catagories/>
+    </v-flex>
+      </v-flex>
     </v-flex>
   </v-layout>
 </template>
@@ -16,14 +21,14 @@
 <script>
 import Products from './Products.vue'
 import Search from './SearchProducts.vue'
-import BookedItems from './BookedItems.vue'
 import Catagories from './Common/Catagories.vue'
+import CategoriesList from './Common/CategoriesList.vue'
 export default {
   components: {
     Products,
     Search,
-    BookedItems,
-    Catagories
+    Catagories,
+    CategoriesList
   },
 }
 </script>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home'
+import Index from '../components/Home/Index'
 import Register from '../components/Register'
 import Login from '../components/Login'
 import AddItem from '../components/AddItem'
@@ -15,7 +15,7 @@ export default new Router({
         {
           path: '/',
           name: 'root',
-          component: Home
+          component: Index
         },
         {
           path: '/register',
@@ -44,7 +44,7 @@ export default new Router({
         },
         {
           path: '*',
-          component: Home
+          component: Index
         } 
       ]
 })

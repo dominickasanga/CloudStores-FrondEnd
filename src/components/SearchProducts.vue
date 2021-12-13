@@ -34,16 +34,23 @@ export default {
   },
   watch: {
     search: _.debounce(async function (value) {
-      const route = {
+      let route;
+      if (this.$store.state.productId != null) {
+          route = {
+            name: 'browse-product'
+          }
+      } else
+      route = {
         name: 'root'
       }
       if(this.search !== '') {
         route.query = {
           search: this.search
         }
+
+        this.$router.push(route)
       }
-      this.$router.push(route)
-      console.log(value)
+      console.log("search-value: ",value)
     }, 700),
     '$route.query.search': {
       immediate: true,
@@ -60,7 +67,7 @@ export default {
 <style scoped>
 .search {
   float: left;
-  width: 90%;
+  width: 80%;
   margin-left: 0.5%;
 }
 .cart {

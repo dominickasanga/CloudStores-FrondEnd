@@ -14,6 +14,7 @@
                 <div
                 v-for="item in items"
                 class="item"
+                @click="loadProduct(item.id, item.categoryId)"
                 :key="item.id">
                 
                 <v-col>
@@ -39,6 +40,7 @@
 
 <script>
 import itemsService from '../../services/ItemsService'
+import categoryService from '../../services/CategoriesService'
 import {mapState} from 'vuex'
 export default {
   components: {
@@ -51,6 +53,16 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route)
+    },
+    async loadProduct(productId,categoryId) {
+      this.$store.dispatch('setProductId', productId)
+      let categoryName = (await categoryService.show(categoryId)).data.name
+      this.$router.push({
+        name: 'browse-product',
+        params: {
+          categoryName: categoryName,
+          itemId: productId
+        }});
     }
   },
   async mounted() {
@@ -98,7 +110,11 @@ export default {
   position: relative;
   text-align: center;
   color: rgb(82, 79, 79);
-  
+}
+
+.item-image:hover {
+   background-color: rgb(19, 18, 18);
+    opacity: 0.35;
 }
 .item-image {
     width: 90%;

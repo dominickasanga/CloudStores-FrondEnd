@@ -6,6 +6,7 @@ import Login from '../components/Login'
 import AddItem from '../components/AddItem'
 import ViewItem from '../components/ViewItem'
 import EditProduct from '../components/EditProduct'
+import BrosweProduct from '../components/BrowseProduct/Index'
 
 Vue.use(Router)
 
@@ -42,6 +43,16 @@ export default new Router({
           name: 'item-edit',
           component: EditProduct
         },
+        {
+          path: '/:categoryName/:itemId',
+          name: 'browse-product',
+          component: BrosweProduct
+        },
+        {
+          path: '/:categoryName',
+          name: 'browse-category',
+          component: Index
+        },     
         {
           path: '*',
           component: Index

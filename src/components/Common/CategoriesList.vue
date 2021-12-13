@@ -9,7 +9,7 @@
                 @click="loadCatelog(null)">Home</li>
                 <li v-for="category in categories"
                 class="site-nav__item"
-                @click="loadCatelog(category.id)"
+                @click="loadCatelog(category.id, category.name)"
                 :key="category.id">
                     {{ category.name }}
                 </li>
@@ -35,9 +35,14 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     },
-    loadCatelog(id) {
+    loadCatelog(id, categoryName) {
       this.categoryId = id;
       this.$store.dispatch('setCategoryId', id)
+      this.$router.push({
+        name: 'browse-category',
+        params: {
+          categoryName: categoryName
+      }});
     }
   },
   async mounted() {

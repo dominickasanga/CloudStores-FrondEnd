@@ -4,6 +4,7 @@
       <categories-list/>
     </v-flex>
     <v-flex xs8 offset-xs2 class="ml-2">
+      <view-product/>
       <featured-products/>
       <br>
       <categories/>
@@ -15,12 +16,14 @@
 import FeaturedProducts from '../Common/FeaturedProducts.vue'
 import CategoriesList from '../Common/CategoriesList.vue'
 import categories from '../Common/Catagories.vue'
+import ViewProduct from '../Common/ViewProduct.vue'
 import {mapState} from 'vuex'
 export default {
   components: {
     FeaturedProducts,
     CategoriesList,
-    categories
+    categories,
+    ViewProduct
   },
   data() {
     return {

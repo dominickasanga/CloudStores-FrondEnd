@@ -34,23 +34,23 @@ export default {
   },
   watch: {
     search: _.debounce(async function (value) {
-      let route;
-      if (this.$store.state.productId != null) {
-          route = {
-            name: 'browse-product'
-          }
-      } else
-      route = {
-        name: 'root'
+      let currentRoute = this.$route.name
+
+      // console.log('currentRoute: ', currentRoute)
+
+      // if (currentRoute == 'browse-product') {
+      //   currentRoute = 'root'
+      // }
+      const route = {
+        name: currentRoute
       }
       if(this.search !== '') {
         route.query = {
           search: this.search
         }
-
-        this.$router.push(route)
       }
-      console.log("search-value: ",value)
+      this.$router.push(route)
+      console.log(value)
     }, 700),
     '$route.query.search': {
       immediate: true,

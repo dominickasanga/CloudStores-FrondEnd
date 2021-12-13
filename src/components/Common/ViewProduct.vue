@@ -1,9 +1,13 @@
 <template>
   <v-layout>
-    <v-flex xs7 offset-xs2>
-         <div>
+    <v-flex>
+         <div class="browse">
            <v-layout>
-             <v-flex xs5>
+             <v-flex>
+               <img class="product-image" :src="item.productImageUrl"/>
+             </v-flex>
+
+             <v-flex>
                 <div class="product-name">
                   {{item.name}}
                 </div>
@@ -44,10 +48,7 @@
 
 
 
-             <v-flex xs5>
-               <img class="product-image" :src="item.productImageUrl"/>
-               {{item.name}}
-             </v-flex>
+
            </v-layout>
       </div>
     </v-flex>
@@ -155,12 +156,28 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .product {
-  padding: 20px;
-  height: 330px;
+  /* padding: 20px; */
+  height: 290px;
+  width: 290px;
   overflow: hidden;
+  float: left;
+  margin-top: 8px;
+  margin-right: 20px;
+    /* margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px; */
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  color: rgb(82, 79, 79);
 }
 .product-name {
   font-size: 30px;
+}
+
+.browse {
+  margin-left: 0px !important;
 }
 
 .product-desc {

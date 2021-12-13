@@ -39,9 +39,9 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import itemsService from '../../services/ItemsService'
 import categoryService from '../../services/CategoriesService'
-import {mapState} from 'vuex'
 export default {
   components: {
   },
@@ -55,6 +55,7 @@ export default {
       this.$router.push(route)
     },
     async loadProduct(productId,categoryId) {
+      
       this.$store.dispatch('setProductId', productId)
       let categoryName = (await categoryService.show(categoryId)).data.name
       this.$router.push({
@@ -66,8 +67,13 @@ export default {
     }
   },
   async mounted() {
-    // (await itemsService.index()).data
-    this.items = (await itemsService.index()).data
+    if (this.$store.state.categoryId != null) {
+        let cateID = this.$store.state.categoryId;
+        //this.$store.state.categoryId = null;
+       this.items = (await itemsService.index(cateID)).data
+    } else {
+      this.items = (await itemsService.index()).data
+    }
   },
   watch: {
     '$route.query.search': {
@@ -76,7 +82,7 @@ export default {
         this.items = (await itemsService.index(value)).data
       }
     },
-    categoryId: {
+        categoryId: {
       immediate: true,
       async handler (value) {
         this.items = (await itemsService.index(value)).data

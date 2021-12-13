@@ -4,11 +4,11 @@
     <v-app>
       <page-header />
       
-      <v-main>
+      
         <v-container fluid>
           <router-view></router-view>
         </v-container>
-      </v-main>
+    
       <client-footer/>
     </v-app>
   </div>

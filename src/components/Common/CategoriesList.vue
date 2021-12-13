@@ -38,6 +38,8 @@ export default {
     loadCatelog(id, categoryName) {
       this.categoryId = id;
       this.$store.dispatch('setCategoryId', id)
+
+       console.log(categoryName+' '+id)
       this.$router.push({
         name: 'browse-category',
         params: {

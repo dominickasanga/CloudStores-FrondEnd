@@ -7,6 +7,7 @@ import AddItem from '../components/AddItem'
 import ViewItem from '../components/ViewItem'
 import EditProduct from '../components/EditProduct'
 import BrosweProduct from '../components/BrowseProduct/Index'
+import BrosweCategory from '../components/BrowseCategory/Index'
 
 Vue.use(Router)
 
@@ -51,7 +52,7 @@ export default new Router({
         {
           path: '/:categoryName',
           name: 'browse-category',
-          component: Index
+          component: BrosweCategory
         },     
         {
           path: '*',

@@ -8,7 +8,7 @@
           </v-layout>
 
           <v-layout>    
-            <v-row>
+            
                 
                 
                 <div
@@ -16,7 +16,7 @@
                 class="category"
                 :key="category.id">
                 
-                <v-col>
+                
                   <v-flex>
                   <div>
                     <img class="category-image" :src="category.categoryImageUrl"/>
@@ -26,11 +26,11 @@
                     </div>
                   </div>
                   </v-flex>
-                </v-col>
+                
                 
                 </div>
              
-                </v-row>
+                
            </v-layout>
       </div>
     </v-flex>

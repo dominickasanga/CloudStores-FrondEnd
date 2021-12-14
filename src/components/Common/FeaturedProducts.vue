@@ -4,7 +4,13 @@
       <div>
 
           <v-layout>
-              <div class="cate-msg">Featured collection</div>
+            <nav-link-category-item/>
+          </v-layout>
+              
+          <v-layout>
+              <div class="cate-name">
+                {{ category_name }}
+              </div>
           </v-layout>
 
           <v-layout>    
@@ -42,12 +48,15 @@
 import {mapState} from 'vuex'
 import itemsService from '../../services/ItemsService'
 import categoryService from '../../services/CategoriesService'
+import navLinkCategoryItem from '../Common/NavLinkCategoryItem.vue'
 export default {
   components: {
+    navLinkCategoryItem
   },
   data() {
     return {
-      items: null
+      items: null,
+      category_name: null
     }
   },
   methods: {
@@ -55,7 +64,6 @@ export default {
       this.$router.push(route)
     },
     async loadProduct(productId,categoryId) {
-      
       this.$store.dispatch('setProductId', productId)
       let categoryName = (await categoryService.show(categoryId)).data.name
       this.$router.push({
@@ -82,16 +90,23 @@ export default {
         this.items = (await itemsService.index(value)).data
       }
     },
-        categoryId: {
+    categoryId: {
       immediate: true,
       async handler (value) {
         this.items = (await itemsService.index(value)).data
       }
-    }
+    },
+    categoryName: {
+       immediate: true,
+       handler () {
+         this.category_name = this.$store.state.categoryName
+       }
+     }
   },
   computed: {
     ...mapState([
-    'categoryId'
+    'categoryId',
+    'categoryName'
     ])
   },
 }
@@ -118,6 +133,11 @@ export default {
   color: rgb(82, 79, 79);
 }
 
+.cate-name {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
 .item-image:hover {
    background-color: rgb(19, 18, 18);
     opacity: 0.35;
@@ -128,5 +148,8 @@ export default {
 
     height: 102%;
 
+}
+.crumb {
+  font-size: 19px;
 }
 </style>

@@ -2,12 +2,17 @@
   <v-layout>
     <v-flex>
          <div class="browse">
+
+           <v-layout>
+             <nav-link-category-item/>
+           </v-layout>
+
            <v-layout>
              <v-flex>
                <img class="product-image" :src="item.productImageUrl"/>
              </v-flex>
 
-             <v-flex>
+             <v-flex class="details">
                 <div class="product-name">
                   {{item.name}}
                 </div>
@@ -18,7 +23,16 @@
                  {{item.tab}}
                </div>
                <br>
-               <v-btn class="cyan"
+
+               <div class="product-price">
+                 K50000.00
+               </div>
+               <br>
+
+
+
+               <div class="buttons--panel">
+               <v-btn class="payment-btn btn--secondary"
                 :to="{
                   name: 'item-edit',
                   params () {
@@ -27,7 +41,21 @@
                     }
                   }
                 }">
-                Edit</v-btn>
+                ADD TO CART</v-btn>
+                <br>
+
+                <v-btn class="payment-btn btn--secondary button--unbranded"
+                :to="{
+                  name: 'item-edit',
+                  params () {
+                    return {
+                      itemId: item.id
+                    }
+                  }
+                }">
+                BUY NOW</v-btn>
+                <br>
+               </div>
 
               <v-btn
               v-if="isUserLoggedIn && !isBookmarked"
@@ -59,7 +87,11 @@
 import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
+import navLinkCategoryItem from '../Common/NavLinkCategoryItem.vue'
 export default {
+    components: {
+      navLinkCategoryItem
+    },
     data() {
         return {
             item: null,
@@ -157,8 +189,8 @@ export default {
 <style scoped>
 .product {
   /* padding: 20px; */
-  height: 290px;
-  width: 290px;
+  min-height: 290px;
+  min-width: 290px;
   overflow: hidden;
   float: left;
   margin-top: 8px;
@@ -169,7 +201,6 @@ export default {
   padding: 10px; */
   cursor: pointer;
   position: relative;
-  text-align: center;
   color: rgb(82, 79, 79);
 }
 .product-name {
@@ -178,6 +209,7 @@ export default {
 
 .browse {
   margin-left: 0px !important;
+  text-align: left !important;
 }
 
 .product-desc {
@@ -189,7 +221,54 @@ export default {
 }
 
 .product-image {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
+}
+
+.product-price {
+  font-size: 23px;
+}
+
+.details {
+  margin-top: 20px;
+}
+
+.payment-btn {
+  width: 55%!important;
+  white-space: normal;
+}
+
+.btn--secondary {
+  padding: 7px 15px;
+  background-color: transparent;
+  color: #333;
+  border: 2px
+ solid #333;
+}
+
+.button--unbranded {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  width: auto;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  text-transform: uppercase;
+  min-height: 44px;
+  line-height: 1.9;
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+.buttons--panel {
+  margin-top: 10%;
 }
 </style>

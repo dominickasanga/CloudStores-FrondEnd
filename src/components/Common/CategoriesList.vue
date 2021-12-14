@@ -4,11 +4,14 @@
       <div>
 
           <v-layout class="cate-ls">
-              <ul id="example-1">
+              <ul id="example-1" ref="ul">
                 <li class="site-nav__home"
+                id="home_cate"
                 @click="loadCatelog(null)">Home</li>
                 <li v-for="category in categories"
                 class="site-nav__item"
+                :id="category.id"
+                :class="dataFieldClass"
                 @click="loadCatelog(category.id, category.name)"
                 :key="category.id">
                     {{ category.name }}
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import categoriesService from '../../services/CategoriesService'
 export default {
   components: {
@@ -38,19 +42,43 @@ export default {
     loadCatelog(id, categoryName) {
       this.categoryId = id;
       this.$store.dispatch('setCategoryId', id)
-
+      this.$store.dispatch('setCategoryName', categoryName)
        console.log(categoryName+' '+id)
       this.$router.push({
         name: 'browse-category',
         params: {
           categoryName: categoryName
       }});
+    },
+    checkSelectedCategory() {
+        this.$refs.ul.childNodes.forEach((li) => {
+         li.setAttribute("class", "site-nav__item")
+         if (this.$store.state.categoryId == li.id) {
+           li.setAttribute("class", "site-nav__item cate-high-light");
+         }
+       })
     }
   },
   async mounted() {
     // (await categoriesService.index()).data
     this.categories = (await categoriesService.index()).data
-  }
+  },
+  updated() {
+    this.checkSelectedCategory()
+  },
+  watch: {
+    categoryId: {
+      immediate: true,
+      handler () {
+        this.checkSelectedCategory()
+      }
+    }
+  },
+  computed: {
+    ...mapState([
+    'categoryId'
+    ])
+  },
 }
 </script>
 
@@ -89,5 +117,8 @@ li:hover {
 }
 ul {
 width: 100%;
+}
+.cate-high-light {
+  font-weight: bold;
 }
 </style>

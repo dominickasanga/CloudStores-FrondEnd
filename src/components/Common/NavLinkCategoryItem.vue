@@ -6,8 +6,12 @@
           <v-layout>
               <div class="cate-msg">
                 Home
-                <span class="crumb">›</span>
+
+                <span class="crumb" v-if="category_name">›</span>
                 {{ category_name }}
+
+                <span class="crumb" v-if="product_name">›</span>
+                {{ product_name }}
                 </div>
           </v-layout>
       </div>
@@ -22,7 +26,8 @@ export default {
   },
   data() {
     return {
-      category_name: null
+      category_name: null,
+      product_name: null
     }
   },
   methods: {
@@ -35,11 +40,18 @@ export default {
        handler () {
          this.category_name = this.$store.state.categoryName
        }
-     }
+    },
+    productName: {
+        immediate: true,
+        handler () {
+            this.product_name = this.$store.state.productName
+        }
+    }
   },
   computed: {
     ...mapState([
-    'categoryName'
+    'categoryName',
+    'productName'
     ])
   },
 }

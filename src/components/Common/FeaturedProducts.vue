@@ -20,7 +20,7 @@
                 <div
                 v-for="item in items"
                 class="item"
-                @click="loadProduct(item.id, item.categoryId)"
+                @click="loadProduct(item.id, item.name, item.categoryId)"
                 :key="item.id">
                 
                 <v-col>
@@ -63,9 +63,10 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     },
-    async loadProduct(productId,categoryId) {
+    async loadProduct(productId, productName, categoryId) {
       this.$store.dispatch('setProductId', productId)
       let categoryName = (await categoryService.show(categoryId)).data.name
+      this.$store.dispatch('setProductName', productName)
       this.$router.push({
         name: 'browse-product',
         params: {

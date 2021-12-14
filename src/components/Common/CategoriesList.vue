@@ -40,6 +40,7 @@ export default {
       this.$router.push(route)
     },
     loadCatelog(id, categoryName) {
+      this.resetProductName()
       this.categoryId = id;
       this.$store.dispatch('setCategoryId', id)
       this.$store.dispatch('setCategoryName', categoryName)
@@ -54,9 +55,15 @@ export default {
         this.$refs.ul.childNodes.forEach((li) => {
          li.setAttribute("class", "site-nav__item")
          if (this.$store.state.categoryId == li.id) {
-           li.setAttribute("class", "site-nav__item cate-high-light");
+           li.setAttribute("class", "site-nav__item cate-high-light")
+         }
+         if (this.$store.state.categoryId == null && li.id == "home_cate") {
+           li.setAttribute("class", "site-nav__item cate-high-light")
          }
        })
+    },
+    resetProductName() {
+      this.$store.dispatch('setProductName', null)
     }
   },
   async mounted() {

@@ -11,6 +11,10 @@
               <div class="cate-name">
                 {{ category_name }}
               </div>
+
+              <div class="cate-name" v-if="!category_name">
+               Featured Collection
+              </div>
           </v-layout>
 
           <v-layout>    

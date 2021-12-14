@@ -49,7 +49,9 @@ export default {
         name: 'browse-category',
         params: {
           categoryName: categoryName
-      }});
+      }}),
+      //its a hack
+      this.checkSelectedCategory()
     },
     checkSelectedCategory() {
         this.$refs.ul.childNodes.forEach((li) => {

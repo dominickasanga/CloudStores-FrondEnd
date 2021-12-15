@@ -33,26 +33,14 @@
 
                <div class="buttons--panel">
                <v-btn class="payment-btn btn--secondary"
-                :to="{
-                  name: 'item-edit',
-                  params () {
-                    return {
-                      itemId: item.id
-                    }
-                  }
-                }">
+                @click="setAsBookmarked"
+                >
                 ADD TO CART</v-btn>
                 <br>
 
                 <v-btn class="payment-btn btn--secondary button--unbranded"
-                :to="{
-                  name: 'item-edit',
-                  params () {
-                    return {
-                      itemId: item.id
-                    }
-                  }
-                }">
+                 @click="setAsBookmarked"
+                 >
                 BUY NOW</v-btn>
                 <br>
                </div>
@@ -87,10 +75,10 @@
 import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
-import navLinkCategoryItem from '../Common/NavLinkCategoryItem.vue'
+import NavLinkCategoryItem from '../Common/NavLinkCategoryItem.vue'
 export default {
     components: {
-      navLinkCategoryItem
+      NavLinkCategoryItem
     },
     data() {
         return {

@@ -12,7 +12,9 @@
 
      <div class="cart">
      <v-icon>shopping_cart</v-icon>
-     <div class="ct">&#160;&#160;&#160;cart&#160;(0)</div>
+     <div
+     @click="navigateTo({name: 'view-cart'})"
+     class="ct">&#160;&#160;&#160;cart&#160;({{cart_number}})</div>
      </div>
           
     </v-flex>
@@ -26,7 +28,8 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      cart_number: 0
     }
   },
   methods: {
@@ -34,8 +37,12 @@ export default {
       const items = this.bookmark = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
+      this.cart_number = items.length
       console.log("BAkhungu: ", items)
-    }
+    },
+    navigateTo(route){
+      this.$router.push(route)
+    },
   },
   async mounted() {
     this.findCartProducts()

@@ -8,6 +8,7 @@ import ViewItem from '../components/ViewItem'
 import EditProduct from '../components/EditProduct'
 import BrosweProduct from '../components/BrowseProduct/Index'
 import BrosweCategory from '../components/BrowseCategory/Index'
+import ViewCart from '../components/ViewCart/Index'
 
 Vue.use(Router)
 
@@ -53,10 +54,15 @@ export default new Router({
           path: '/:categoryName',
           name: 'browse-category',
           component: BrosweCategory
-        },     
+        },
+        {
+          path: '/cart',
+          name: 'view-cart',
+          component: ViewCart
+        },    
         {
           path: '*',
           component: Index
-        } 
+        },
       ]
 })

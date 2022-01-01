@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex>
+    <v-flex offset-xs2>
       <div>
 
           <v-layout>
@@ -127,7 +127,7 @@ export default {
   overflow: hidden;
   float: left;
   margin-top: 8px;
-  margin-right: 20px;
+  margin-right: -25px;
     /* margin: auto;
   width: 50%;
   border: 3px solid green;

@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex>
+    <v-flex offset-xs3>
       <div>
 
           <v-layout>

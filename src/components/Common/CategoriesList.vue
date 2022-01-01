@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex>
+    <v-flex offset-xs6>
       <div>
 
           <v-layout class="cate-ls">
@@ -129,5 +129,8 @@ width: 100%;
 }
 .cate-high-light {
   font-weight: bold;
+}
+.flex.offset-xs6 {
+  margin-right: -40%;
 }
 </style>

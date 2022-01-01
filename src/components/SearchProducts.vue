@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex  xs8 offset-xs1 class="ml-9 search">
+    <v-flex  xs9 offset-xs2 class=" search">
       
 
       <v-text-field
@@ -82,7 +82,7 @@ export default {
 <style scoped>
 .search {
   float: left;
-  width: 80%;
+  width: 66%;
   margin-left: 0.5%;
 }
 .cart {

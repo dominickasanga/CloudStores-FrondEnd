@@ -1,11 +1,8 @@
 <template>
 
   <v-layout>
-    <v-flex>
+    <v-flex offset-xs2>
     <div class="browse">
-      <v-layout>
-        <nav-link-category-item/>
-      </v-layout>
 
       <v-layout>    
         <v-container>
@@ -87,10 +84,9 @@
 import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
-import NavLinkCategoryItem from './NavLinkCategoryItem.vue'
 export default {
     components: {
-      NavLinkCategoryItem
+      
     },
     data() {
         return {

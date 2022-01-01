@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex>
+    <v-flex offset-xs2>
          <div class="browse">
 
            <v-layout>

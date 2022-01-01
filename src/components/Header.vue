@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed  dark  elevation="4">
+  <v-app-bar fixed  dark  elevation="4">
     <v-toolbar-title class="mr-4">
       <router-link 
         class="home"
@@ -35,7 +35,7 @@
         Log Out
       </v-btn>
     </v-toolbar-items>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
 <v-layout class="sd">
-<v-flex  xs8 offset-xs1 class="ml-9">
+<v-flex  xs9 offset-xs2 class="sldr-cls">
       <div id="sldr">
     <Slider
       animation="fade"
@@ -82,6 +82,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 89%;
 }
 
 .slider {

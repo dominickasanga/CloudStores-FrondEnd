@@ -1,41 +1,86 @@
 <template>
+
   <v-layout>
     <v-flex>
-         <div class="browse">
+    <div class="browse">
+      <v-layout>
+        <nav-link-category-item/>
+      </v-layout>
 
-           <v-layout>
-             <nav-link-category-item/>
-           </v-layout>
+      <v-layout>    
+        <v-container>
+        <v-row style="margin-bottom: 4%">
+          <v-col class="ctr-label">
+            Your Cart
+          </v-col>
+          <v-col>
+            <div style="float: right">
+              Continue shopping
+            </div>
+          </v-col>
+        </v-row>
+        <v-row class="crt-rw-1">
+          <v-col class="ctr-label-1" style="float: left">
+            PRODUCT
+          </v-col>
+          <v-col>
+            <div style="float: right">
+              PRICE
+            </div>
+          </v-col>
+          <v-col>
+            <div style="float: left">
+              QUANTITY
+            </div>
+          </v-col>
+          <v-col >
+            <div style="float: right">
+              TOTAL
+            </div>
+          </v-col>
+        </v-row>
 
-            <v-layout>    
-            <v-row>
-                
-                <div
-                v-for="item in items"
-                class="item"
-                @click="loadProduct(item.item.id, item.item.name, item.item.categoryId)"
-                :key="item.item.id">
-                
+        <v-row
+         v-for="item in items"
+          :key="item.id"
+          style="margin-top: 4%"
+        class="crt-rw-1">
+          <v-col class="ctr-label-1" style="float: left">
+              <img class="product-image" :src="item.productImageUrl"/>
+          </v-col>
+          <v-col>
+            <div style="float: right">
+              K50000.00
+            </div>
+          </v-col>
+          <v-col>
+            <div style="float: left">
+              <v-row class="crt-quant">
                 <v-col>
-                  <v-flex>
-                  <div>
-                    <img class="item-image" :src="item.item.productImageUrl"/>
-                     
-                    <div class="item-name">
-                    {{item.item.name}} 
-                    </div>
-                  </div>
-                  </v-flex>
+                  -
                 </v-col>
-                
-                </div>
-             
-                </v-row>
-           </v-layout>
+                <v-col>
+                  1
+                </v-col>
+                <v-col>
+                  +
+                </v-col>
+              </v-row>
+            </div>
+          </v-col>
+          <v-col >
+            <div style="float: right">
+              TOTAL
+            </div>
+          </v-col>
+        </v-row>
 
+        </v-container>
+      </v-layout>
       </div>
     </v-flex>
   </v-layout>
+
 </template>
 
 <script>
@@ -49,7 +94,7 @@ export default {
     },
     data() {
         return {
-            item: null,
+            items: null,
             isBookmarked: false,
             bookmark: null
         }
@@ -82,12 +127,15 @@ export default {
     }
     },
     async mounted() {
-        // if (!this.isUserLoggedIn) {
-        //   return
-        // }
-        this.item = this.bookmark = (await BooKmarkService.index({
+        console.log("here: ", )
+        this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
+        let tempArray = []
+        for (let item of this.items) {
+          tempArray.push(item.Item)
+        }
+        this.items = tempArray
     },
     methods: {
         navigateTo(route) {
@@ -147,7 +195,7 @@ export default {
 }
 
 .product-image {
-    width: 90%;
+    width: 50%;
     margin: 0 auto;
 }
 
@@ -196,5 +244,16 @@ export default {
 
 .buttons--panel {
   margin-top: 10%;
+}
+.ctr-label {
+  font-size: 20px;
+}
+.crt-rw-1 {
+  border-bottom-color: #333;
+  border-bottom:solid 1px;
+}
+.crt-quant {
+  border-color: #333;
+  border:solid 1px
 }
 </style>

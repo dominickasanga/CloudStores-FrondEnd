@@ -39,15 +39,15 @@
 
         <v-row
          v-for="item in items"
-          :key="item.id"
+          :key="item.item.id"
           style="margin-top: 4%"
         class="crt-rw-1">
           <v-col class="ctr-label-1" style="float: left">
-              <img class="product-image" :src="item.productImageUrl"/>
+              <img class="product-image" :src="item.item.productImageUrl"/>
           </v-col>
           <v-col>
             <div style="float: right">
-              K50000.00
+              K{{item.item.price}}
             </div>
           </v-col>
           <v-col>
@@ -60,7 +60,7 @@
                 </v-col>
                 <v-col>
                   <div id="qtnty">
-                    {{quantinty}}
+                    {{item.quantity}}
                   </div>
                 </v-col>
                 <v-col>
@@ -131,15 +131,26 @@ export default {
     }
     },
     async mounted() {
-        console.log("here: ", )
+        let quantity
         this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
+
         let tempArray = []
         for (let item of this.items) {
-          tempArray.push(item.Item)
+          quantity = item.quantity
+          //console.log("QUANTITY: ", quantity)
+          //item.Item.push(quantity)
+          console.log(item.Item)
+
+          tempArray.push({
+            quantity: quantity,
+            item: item.Item
+          })
         }
         this.items = tempArray
+
+        console.log("bookmark: ",this.items)
     },
     methods: {
         navigateTo(route) {

@@ -54,17 +54,17 @@
             <div style="float: left">
               <v-row class="crt-quant">
                 <v-col>
-                  <div id="qtnty-decr" @click="decreamentQuantinty">
+                  <div id="qtnty-decr" @click="decreamentQuantinty(generalId+item.item.id)">
                     -
                   </div>
                 </v-col>
                 <v-col>
-                  <div id="qtnty">
+                  <div :id="generalId+item.item.id" ref="qnt">
                     {{item.quantity}}
                   </div>
                 </v-col>
                 <v-col>
-                  <div id="qtnty-incr" @click="increamentQuantinty">
+                  <div id="qtnty-incr" @click="increamentQuantinty(generalId+item.item.id)">
                     +
                   </div>
                   
@@ -100,7 +100,7 @@ export default {
             items: null,
             isBookmarked: false,
             bookmark: null,
-            quantinty: 3
+            generalId: "Q"
         }
     },
     props: [
@@ -135,22 +135,15 @@ export default {
         this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
-
         let tempArray = []
         for (let item of this.items) {
           quantity = item.quantity
-          //console.log("QUANTITY: ", quantity)
-          //item.Item.push(quantity)
-          console.log(item.Item)
-
           tempArray.push({
             quantity: quantity,
             item: item.Item
           })
         }
         this.items = tempArray
-
-        console.log("bookmark: ",this.items)
     },
     methods: {
         navigateTo(route) {
@@ -170,14 +163,30 @@ export default {
           }
         },
 
-        increamentQuantinty() {
-          if(this.quantinty != 0 || this.quantinty == 0)
-          this.quantinty++
+        increamentQuantinty(id) {
+          for (let e of this.$refs.qnt) {
+            let elemntId = e.getAttribute("id")
+            if (elemntId == id) {
+              let elemntQuantity = e.innerHTML
+              if(elemntQuantity != 0 || elemntQuantity == 0) {
+                elemntQuantity++
+                e.innerHTML = elemntQuantity
+              }
+            }
+          }
         },
 
-        decreamentQuantinty() {
-          if(this.quantinty != 0)
-          this.quantinty--
+        decreamentQuantinty(id) {
+          for (let e of this.$refs.qnt) {
+            let elemntId = e.getAttribute("id")
+            if (elemntId == id) {
+              let elemntQuantity = e.innerHTML
+              if(elemntQuantity != 0) {
+                elemntQuantity--
+                e.innerHTML = elemntQuantity
+              }
+            }
+          }
         }
 
     }

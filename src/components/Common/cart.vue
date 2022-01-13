@@ -54,13 +54,20 @@
             <div style="float: left">
               <v-row class="crt-quant">
                 <v-col>
-                  -
+                  <div id="qtnty-decr" @click="decreamentQuantinty">
+                    -
+                  </div>
                 </v-col>
                 <v-col>
-                  1
+                  <div id="qtnty">
+                    {{quantinty}}
+                  </div>
                 </v-col>
                 <v-col>
-                  +
+                  <div id="qtnty-incr" @click="increamentQuantinty">
+                    +
+                  </div>
+                  
                 </v-col>
               </v-row>
             </div>
@@ -92,7 +99,8 @@ export default {
         return {
             items: null,
             isBookmarked: false,
-            bookmark: null
+            bookmark: null,
+            quantinty: 3
         }
     },
     props: [
@@ -149,6 +157,16 @@ export default {
           } catch(err) {
             console.log(err)
           }
+        },
+
+        increamentQuantinty() {
+          if(this.quantinty != 0 || this.quantinty == 0)
+          this.quantinty++
+        },
+
+        decreamentQuantinty() {
+          if(this.quantinty != 0)
+          this.quantinty--
         }
 
     }
@@ -251,5 +269,8 @@ export default {
 .crt-quant {
   border-color: #333;
   border:solid 1px
+}
+#qtnty-incr {
+  
 }
 </style>

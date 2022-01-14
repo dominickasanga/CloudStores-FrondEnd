@@ -74,7 +74,7 @@
           </v-col>
           <v-col >
             <div :id="generalTotalId+item.item.id" ref="totalPrc" style="float: right">
-              {{item.item.price * item.quantity}}
+              K{{item.item.price * item.quantity}}
             </div>
           </v-col>
         </v-row>
@@ -185,16 +185,17 @@ export default {
             let elemntId = e.getAttribute("id")
             if (elemntId == id) {
               let elemntQuantity = e.innerHTML
-              if(elemntQuantity != 0) {
+              if(elemntQuantity != 1) {
                 elemntQuantity--
                 e.innerHTML = elemntQuantity
+
+                this.updatePrice(id,elemntQuantity)
               }
             }
           }
         },
 
         updatePrice(elId, elQuantity) {
-          if (elQuantity == 0) elQuantity = 1
           elId = elId.split('Q')[1]
           for (let e of this.$refs.prc) {
             let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
@@ -203,14 +204,12 @@ export default {
               for (let elementTotalPrc of this.$refs.totalPrc) {
                 let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
                 if (elTPrcId == elId) {
-                  elementTotalPrc.innerHTML = elPrice * elQuantity
+                  elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
                 }
               }
             }
           }
-
         }
-
     }
 }
 </script>

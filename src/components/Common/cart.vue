@@ -46,7 +46,7 @@
               <img class="product-image" :src="item.item.productImageUrl"/>
           </v-col>
           <v-col>
-            <div style="float: right">
+            <div :id="generalPrice+item.item.id" ref="prc" style="float: right">
               K{{item.item.price}}
             </div>
           </v-col>
@@ -73,8 +73,8 @@
             </div>
           </v-col>
           <v-col >
-            <div style="float: right">
-              TOTAL
+            <div :id="generalTotalId+item.item.id" ref="totalPrc" style="float: right">
+              {{item.item.price * item.quantity}}
             </div>
           </v-col>
         </v-row>
@@ -100,7 +100,9 @@ export default {
             items: null,
             isBookmarked: false,
             bookmark: null,
-            generalId: "Q"
+            generalId: "Q",
+            generalTotalId: "T",
+            generalPrice: "P"
         }
     },
     props: [
@@ -171,6 +173,8 @@ export default {
               if(elemntQuantity != 0 || elemntQuantity == 0) {
                 elemntQuantity++
                 e.innerHTML = elemntQuantity
+
+                this.updatePrice(id,elemntQuantity)
               }
             }
           }
@@ -187,6 +191,24 @@ export default {
               }
             }
           }
+        },
+
+        updatePrice(elId, elQuantity) {
+          if (elQuantity == 0) elQuantity = 1
+          elId = elId.split('Q')[1]
+          for (let e of this.$refs.prc) {
+            let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
+            if (elId == elementSeletedPriceId) {
+              let elPrice = e.innerHTML.split('K')[1]
+              for (let elementTotalPrc of this.$refs.totalPrc) {
+                let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
+                if (elTPrcId == elId) {
+                  elementTotalPrc.innerHTML = elPrice * elQuantity
+                }
+              }
+            }
+          }
+
         }
 
     }

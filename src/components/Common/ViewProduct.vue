@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex offset-xs2>
-         <div class="browse">
+         <div class="browse view-product-card">
 
            <v-layout>
              <nav-link-category-item/>
@@ -225,7 +225,7 @@ export default {
 }
 
 .payment-btn {
-  white-space: normal;
+   white-space: normal;
 }
 
 .btn--secondary {
@@ -252,13 +252,18 @@ export default {
   white-space: nowrap;
   cursor: pointer;
   text-transform: uppercase;
-  min-height: 44px;
+  min-height: 35px;
   line-height: 1.9;
   background-color: #333 !important;
   color: #fff !important;
+  width: 130%;
 }
 
 .buttons--panel {
   margin-top: 10%;
+}
+.view-product-card {
+  background: #fff;
+  border-radius: 25px;
 }
 </style>

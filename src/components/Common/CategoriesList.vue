@@ -104,6 +104,8 @@ export default {
     color: #333;
     font-size: 17px;
     text-align: initial;
+    background: aquamarine;
+    border-radius: 25px;
 }
 
 li {

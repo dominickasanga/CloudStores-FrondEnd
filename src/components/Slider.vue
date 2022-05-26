@@ -87,6 +87,7 @@ export default {
 
 .slider {
     z-index: 0;
+    border-radius: 25px;
 }
 
 p {

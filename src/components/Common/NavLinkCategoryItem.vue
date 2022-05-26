@@ -62,6 +62,8 @@ export default {
 <style scoped>
 .cate-msg {
     margin-bottom: 12px;
+    margin-left: 4%;
+    margin-top: 2%;
 }
 .crumb {
   font-size: 19px;

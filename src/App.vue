@@ -35,6 +35,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   overflow: none;
+  background: #f2f2f2 !important;
 }
 
 .danger-alert {

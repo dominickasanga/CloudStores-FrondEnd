@@ -1,36 +1,28 @@
 <template>
   <v-layout>
-    <v-flex offset-xs3>
-      <div>
-
-          <v-layout>
+    <v-flex offset-xs2>
+      <div class="catagories-card">
+          <v-layout class="cate-msg-layout">
               <div class="cate-msg">Allow your style to match your ambition!</div>
           </v-layout>
-
-          <v-layout>    
-            <v-row>
-                
-                
+          <v-layout class="category-layout">    
+            <v-row class="category-row">
                 <div
                 v-for="category in categories"
                 class="category"
                 :key="category.id">
-                
-                <v-col>
-                  <v-flex>
-                  <div>
-                    <img class="category-image" :src="category.categoryImageUrl"/>
-
-                    <div class="category-name">
-                      <h5> {{category.name}} </h5>
+                  <v-col>
+                    <v-flex>
+                    <div>
+                      <img class="category-image" :src="category.categoryImageUrl"/>
+                      <div class="category-name">
+                        <h5> {{category.name}} </h5>
+                      </div>
                     </div>
-                  </div>
-                  </v-flex>
-                </v-col>
-                
+                    </v-flex>
+                  </v-col>
                 </div>
-             
-                </v-row>
+              </v-row>
            </v-layout>
       </div>
     </v-flex>
@@ -127,5 +119,39 @@ export default {
 }
 .cate-msg {
     font-size: 1.53333em;
+}
+.catagories-card {
+  border-radius: 25px;
+  background: aquamarine;
+  width: fit-content;
+  height: auto;
+  padding-bottom: 2%;
+}
+.row {
+  margin: auto !important;
+}
+.cate-msg-layout {
+  margin: auto;
+  position: relative;
+   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /** Y-axis align **/
+  justify-content: center; /** X-axis align **/
+}
+.category-layout {
+  margin-left: 3.5%;
+  margin-top: 0;
+  margin-bottom: -25%;
+  margin-bottom: 0;
+  position: relative;
+   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /** Y-axis align **/
+  justify-content: center; /** X-axis align **/
+}
+.category-row {
+  margin: inherit !important;
 }
 </style>

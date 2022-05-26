@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex offset-xs2>
-         <div class="browse">
+         <div class="browse view-product-card">
 
            <v-layout>
              <nav-link-category-item/>
@@ -261,5 +261,9 @@ export default {
 
 .buttons--panel {
   margin-top: 10%;
+}
+.view-product-card {
+  background: #fff;
+  border-radius: 25px;
 }
 </style>

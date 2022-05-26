@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex offset-xs2>
-      <div>
+      <div class="featured-products-card">
 
           <v-layout>
             <nav-link-category-item/>
@@ -141,6 +141,7 @@ export default {
 .cate-name {
   font-size: 28px;
   margin-bottom: 14px;
+  margin-left: 2%;
 }
 
 .item-image:hover {
@@ -156,5 +157,9 @@ export default {
 }
 .crumb {
   font-size: 19px;
+}
+.featured-products-card {
+  border-radius: 25px;
+  background: #fff;
 }
 </style>

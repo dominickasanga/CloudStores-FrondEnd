@@ -225,7 +225,7 @@ export default {
 }
 
 .payment-btn {
-  white-space: normal;
+   white-space: normal;
 }
 
 .btn--secondary {
@@ -252,10 +252,11 @@ export default {
   white-space: nowrap;
   cursor: pointer;
   text-transform: uppercase;
-  min-height: 44px;
+  min-height: 35px;
   line-height: 1.9;
   background-color: #333 !important;
   color: #fff !important;
+  width: 130%;
 }
 
 .buttons--panel {

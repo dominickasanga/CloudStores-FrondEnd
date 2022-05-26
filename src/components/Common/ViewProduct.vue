@@ -29,20 +29,23 @@
                </div>
                <br>
 
-
-
                <div class="buttons--panel">
-               <v-btn class="payment-btn btn--secondary"
-                @click="setAsBookmarked"
-                >
-                ADD TO CART</v-btn>
-                <br>
-
-                <v-btn class="payment-btn btn--secondary button--unbranded"
-                 @click="setAsBookmarked"
-                 >
-                BUY NOW</v-btn>
-                <br>
+                 <table>
+                   <tr>
+                     <td>
+                       <v-btn class="payment-btn btn--secondary"
+                        @click="setAsBookmarked"
+                        >
+                        ADD TO CART</v-btn>
+                     </td>
+                     <td>
+                        <v-btn class="payment-btn btn--secondary button--unbranded"
+                        @click="setAsBookmarked"
+                        >
+                        BUY NOW</v-btn>
+                     </td>
+                   </tr>
+                 </table>
                </div>
 
               <v-btn
@@ -222,7 +225,6 @@ export default {
 }
 
 .payment-btn {
-  width: 55%!important;
   white-space: normal;
 }
 

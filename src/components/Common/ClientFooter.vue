@@ -41,6 +41,9 @@ export default {
     background-color:black !important;
     height: 60px;
     font-size: 15px;
+    position: fixed;
+    bottom: 0;
+    width: -webkit-fill-available;
 }
 .t-footer {
     color: white;

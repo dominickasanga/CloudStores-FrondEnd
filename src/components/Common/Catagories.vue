@@ -126,6 +126,7 @@ export default {
   width: fit-content;
   height: auto;
   padding-bottom: 2%;
+  margin-bottom: 10%;
 }
 .row {
   margin: auto !important;

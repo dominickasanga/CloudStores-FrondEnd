@@ -11,7 +11,9 @@
       </router-link>
     </v-toolbar-title>
 
-    <v-spacer></v-spacer>
+    <v-spacer>
+      <search/>
+    </v-spacer>
 
     <v-toolbar-items >  
       <v-btn flat dark v-if="!$store.state.isUserLoggedIn"
@@ -39,7 +41,11 @@
 </template>
 
 <script>
+import Search from '../components/SearchProducts.vue'
 export default {
+    components: {
+    Search
+  },
   methods: {
     navigateTo(route){
       console.log(route)

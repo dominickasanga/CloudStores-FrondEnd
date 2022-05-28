@@ -2,8 +2,8 @@
   <div>
     <v-layout column>
       <v-flex>
-        <div class="white elevation-2">
-          <v-toolbar flat dense class="cyan" dark>
+        <div class="white elevation-2 p-radius panel">
+          <v-toolbar flat dense class=" h-radius" dark>
             <v-toolbar-title>{{title}}</v-toolbar-title>
             <slot name="action" />
             </v-toolbar>
@@ -34,5 +34,19 @@ export default {
 <style scoped>
 .error1 {
   color: red;
+}
+.p-radius {
+  border-radius: 25px;
+}
+.h-radius {
+  border-radius: 25px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.panel {
+  width: 60%;
+  position: relative;
+  margin-left: 18%;
+  margin-top: 3%;
 }
 </style>

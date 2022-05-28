@@ -17,7 +17,7 @@
             <br>
             <div class="error1" v-html="error"/>
             <br>
-            <v-btn class="cyan"
+            <v-btn class="action"
             @click="register">Register</v-btn>
           </div>
           </form>
@@ -62,5 +62,8 @@ export default {
 <style scoped>
 .error1 {
   color: red;
+}
+.action {
+  margin-left: 80%;
 }
 </style>

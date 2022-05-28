@@ -3,12 +3,9 @@
   <div id="app">
     <v-app>
       <page-header />
-      
-      
-        <v-container fluid>
-          <router-view></router-view>
-        </v-container>
-    
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
       <client-footer/>
     </v-app>
   </div>
@@ -40,5 +37,8 @@ export default {
 
 .danger-alert {
   color: red;
+}
+.v-application--wrap {
+  min-height: 91.8vh !important;
 }
 </style>

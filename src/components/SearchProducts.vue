@@ -40,16 +40,11 @@ export default {
     computed: {
     ...mapState([
     'cartNumber'
-    ]),
-    someComputedLocalState() {
-            // is triggered whenever the store state changes
-            return this.cartNumber
-        }
+    ])
   },
   watch: {
     cartNumber(val, oldVal) {
       // is triggered whenever the store state changes
-      console.log('do stuff', val, oldVal);
       this.cart_number = val
     },
     search: _.debounce(async function (value) {

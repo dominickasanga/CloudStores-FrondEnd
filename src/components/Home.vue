@@ -1,11 +1,8 @@
 <template>
   <v-layout>
-    
-
     <v-flex>
-      <search/>
       <v-flex>
-            <v-flex xs3>
+       <v-flex xs3>
       <categories-list/>
     </v-flex>
     <v-flex xs7 offset-xs2 class="ml-2">
@@ -20,13 +17,11 @@
 
 <script>
 import Products from './Products.vue'
-import Search from './SearchProducts.vue'
 import Catagories from './Common/Catagories.vue'
 import CategoriesList from './Common/CategoriesList.vue'
 export default {
   components: {
     Products,
-    Search,
     Catagories,
     CategoriesList
   },

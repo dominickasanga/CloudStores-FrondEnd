@@ -43,8 +43,7 @@ export default {
     font-size: 15px;
     position: absolute;
     bottom: 0;
-    width: -moz-available !important;
-    margin-top: 20%;
+    width: 100% !important;
 }
 .t-footer {
     color: white;

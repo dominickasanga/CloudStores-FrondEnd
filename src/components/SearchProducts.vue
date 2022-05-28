@@ -2,9 +2,10 @@
   <v-layout>
     <v-flex  xs9 offset-xs2 class=" search">
       <v-text-field
-        class="search search-field"
+        class="search"
         append-icon="search"
-        placeholder="Search"
+        label="Search"
+        solo
         v-model="search">
       </v-text-field>
       <div class="cart">
@@ -82,6 +83,8 @@ export default {
   float: left;
   width: 66%;
   margin-left: 0.5%;
+  min-height: auto !important;
+  margin-top: 2.2%;
 }
 .cart {
   display: inline-block;
@@ -92,12 +95,10 @@ export default {
   float: right;
   font-size: 18px;
 }
-.search-field {
-  border:solid 2px gray;    
-  margin: 5px 5px;
-  /* border-radius: 10px; */
-}
 .search-field:focus{
   /* outline:solid 10px red; */
+}
+.v-text-field.v-text-field--solo .v-input__control {
+ min-height:0;
 }
 </style>

@@ -21,40 +21,35 @@
 </template>
 <script>
 import _ from 'lodash'
-import BooKmarkService from '../services/BookmarkService'
+import {mapState} from 'vuex'
+
 export default {
   components: {
   },
   data() {
     return {
       search: '',
-      cart_number: 0
+      cart_number: this.$store.state.cartNumber
     }
   },
   methods: {
-    async findCartProducts() {
-      const items = this.bookmark = (await BooKmarkService.index({
-          userId: this.$store.state.user.id
-        })).data
-      this.cart_number = items.length
-      console.log("BAkhungu: ", items)
-    },
     navigateTo(route){
       this.$router.push(route)
     },
   },
-  async mounted() {
-    this.findCartProducts()
+    computed: {
+    ...mapState([
+    'cartNumber'
+    ])
   },
   watch: {
+    cartNumber(val, oldVal) {
+      // is triggered whenever the store state changes
+      console.log('do stuff', val, oldVal);
+      this.cart_number = val
+    },
     search: _.debounce(async function (value) {
       let currentRoute = this.$route.name
-
-      // console.log('currentRoute: ', currentRoute)
-
-      // if (currentRoute == 'browse-product') {
-      //   currentRoute = 'root'
-      // }
       const route = {
         name: currentRoute
       }
@@ -75,8 +70,6 @@ export default {
   }
 }
 </script>
-
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .search {

@@ -23,6 +23,7 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
+import CartService from '../services/CartService'
 
 export default {
   components: {  },
@@ -42,6 +43,9 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$store.dispatch('setCartNumber', 
+          await CartService.updateCartNUmber(this.$store.state.user.id)
+        )
         this.$router.push({
           name: 'root'
         })

@@ -79,6 +79,7 @@ import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
 import NavLinkCategoryItem from '../Common/NavLinkCategoryItem.vue'
+import CartService from '../../services/CartService'
 export default {
     components: {
       NavLinkCategoryItem
@@ -152,7 +153,9 @@ export default {
               userId: this.$store.state.user.id
             })).data
             if (this.bookmark.length != 0)
-            this.$router.go(this.$router.currentRoute)
+            this.$store.dispatch('setCartNumber', 
+              await CartService.updateCartNUmber(this.$store.state.user.id)
+            )
           } catch(err) {
             console.log(err)
           }
@@ -162,11 +165,11 @@ export default {
         async unSetAsBookmarked() {
           try {
             this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
-            
             let cond = !!this.bookmark
             if(cond)
-            this.$router.go(this.$router.currentRoute)
-            
+            this.$store.dispatch('setCartNumber', 
+              await CartService.updateCartNUmber(this.$store.state.user.id)
+            )
           } catch(err) {
             console.log(err)
           }

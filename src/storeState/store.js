@@ -16,7 +16,8 @@ export default new Vuex.Store({
         categoryId: null,
         categoryName: null,
         productId: null,
-        productName: null
+        productName: null,
+        cartNumber: 0
     },
 
     mutations: {
@@ -44,6 +45,9 @@ export default new Vuex.Store({
         setProductName (state,_productName) {
             state.productName = _productName
         },
+        setCartNumber (state,_cartNumber) {
+            state.cartNumber = _cartNumber
+        }
     },
 
     actions: {
@@ -65,5 +69,8 @@ export default new Vuex.Store({
         setProductName ({commit}, _productName) {
            commit('setProductName', _productName)
         },
+        setCartNumber({commit}, _cartNumber) {
+            commit('setCartNumber', _cartNumber)
+        }
     }
 })

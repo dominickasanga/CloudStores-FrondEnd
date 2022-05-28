@@ -21,30 +21,20 @@
 </template>
 <script>
 import _ from 'lodash'
-import BooKmarkService from '../services/BookmarkService'
+
 export default {
   components: {
   },
   data() {
     return {
       search: '',
-      cart_number: 0
+      cart_number: this.$store.state.cartNumber
     }
   },
   methods: {
-    async findCartProducts() {
-      const items = this.bookmark = (await BooKmarkService.index({
-          userId: this.$store.state.user.id
-        })).data
-      this.cart_number = items.length
-      console.log("BAkhungu: ", items)
-    },
     navigateTo(route){
       this.$router.push(route)
     },
-  },
-  async mounted() {
-    this.findCartProducts()
   },
   watch: {
     search: _.debounce(async function (value) {

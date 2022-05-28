@@ -55,6 +55,7 @@ export default {
       //unset login state
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
+      this.$store.dispatch('setCartNumber', 0)
       //redirect
       this.$router.push({
         name: 'root'

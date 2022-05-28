@@ -21,6 +21,7 @@
 </template>
 <script>
 import _ from 'lodash'
+import {mapState} from 'vuex'
 
 export default {
   components: {
@@ -36,15 +37,23 @@ export default {
       this.$router.push(route)
     },
   },
+    computed: {
+    ...mapState([
+    'cartNumber'
+    ]),
+    someComputedLocalState() {
+            // is triggered whenever the store state changes
+            return this.cartNumber
+        }
+  },
   watch: {
+    cartNumber(val, oldVal) {
+      // is triggered whenever the store state changes
+      console.log('do stuff', val, oldVal);
+      this.cart_number = val
+    },
     search: _.debounce(async function (value) {
       let currentRoute = this.$route.name
-
-      // console.log('currentRoute: ', currentRoute)
-
-      // if (currentRoute == 'browse-product') {
-      //   currentRoute = 'root'
-      // }
       const route = {
         name: currentRoute
       }
@@ -65,8 +74,6 @@ export default {
   }
 }
 </script>
-
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .search {

@@ -5,7 +5,7 @@
     <div class="browse">
 
       <v-layout>    
-        <v-container>
+        <v-container id="container" ref="container">
         <v-row style="margin-bottom: 4%">
           <v-col class="ctr-label">
             Your Cart
@@ -79,6 +79,21 @@
           </v-col>
         </v-row>
 
+        <v-row class="crt-rw-1">
+          <v-col class="ctr-label-1" style="float: left">
+           []
+          </v-col>
+          <v-col>
+          </v-col>
+          <v-col>
+          </v-col>
+          <v-col >
+            <div style="float: right" id="total-price" ref="total-price">
+              K{{total_Price}}
+            </div>
+          </v-col>
+        </v-row>
+
         </v-container>
       </v-layout>
       </div>
@@ -97,12 +112,13 @@ export default {
     },
     data() {
         return {
-            items: null,
-            isBookmarked: false,
-            bookmark: null,
-            generalId: "Q",
-            generalTotalId: "T",
-            generalPrice: "P"
+          items: null,
+          isBookmarked: false,
+          bookmark: null,
+          generalId: "Q",
+          generalTotalId: "T",
+          generalPrice: "P",
+          total_Price: this.$store.state.totalPrice
         }
     },
     props: [
@@ -110,10 +126,16 @@ export default {
     ],
     computed: {
       ...mapState([
-        'productId'
-      ])
+        'productId',
+        'totalPrice'
+      ]),
     },
     watch: {
+      totalPrice(val, oldVal) {
+        // is triggered whenever the store state changes
+        console.log('do stuff', val, oldVal);
+        this.total_Price = val
+      },
       productId: {
       immediate: true,
       async handler (value) {
@@ -133,6 +155,7 @@ export default {
     }
     },
     async mounted() {
+        let price = 0
         let quantity
         this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
@@ -144,8 +167,13 @@ export default {
             quantity: quantity,
             item: item.Item
           })
+          price += parseInt(quantity) * parseInt(item.Item.price)
         }
         this.items = tempArray
+        this.$store.dispatch('setTotalPrice', price)
+        setTimeout(()=>{
+          this.removeBottomlineOnLastRow(this.$refs.container)
+        }, 100)
     },
     methods: {
         navigateTo(route) {
@@ -209,6 +237,15 @@ export default {
               }
             }
           }
+        },
+
+        removeBottomlineOnLastRow(containerElement) {
+          let nodes = containerElement.childNodes
+          if(nodes.length > 2) {
+            let lastRow = nodes[nodes.length-1]
+            lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
+          }
+          console.log("haha")
         }
     }
 }
@@ -239,6 +276,8 @@ export default {
 .browse {
   margin-left: 0px !important;
   text-align: left !important;
+  background: #fff;
+  border-radius: 25px;
 }
 
 .product-desc {

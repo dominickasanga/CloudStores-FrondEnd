@@ -233,6 +233,8 @@ export default {
                 let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
                 if (elTPrcId == elId) {
                   elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
+                  const updatedPrice = this.total_Price += elPrice * elQuantity
+                  this.$store.dispatch('setTotalPrice', updatedPrice)
                 }
               }
             }

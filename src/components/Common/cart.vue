@@ -5,7 +5,7 @@
     <div class="browse">
 
       <v-layout>    
-        <v-container>
+        <v-container id="container" ref="container">
         <v-row style="margin-bottom: 4%">
           <v-col class="ctr-label">
             Your Cart
@@ -111,7 +111,7 @@ export default {
     computed: {
       ...mapState([
         'productId'
-      ])
+      ]),
     },
     watch: {
       productId: {
@@ -146,6 +146,9 @@ export default {
           })
         }
         this.items = tempArray
+        setTimeout(()=>{
+          this.removeBottomlineOnLastRow(this.$refs.container)
+        }, 100)
     },
     methods: {
         navigateTo(route) {
@@ -209,6 +212,15 @@ export default {
               }
             }
           }
+        },
+
+        removeBottomlineOnLastRow(containerElement) {
+          let nodes = containerElement.childNodes
+          if(nodes.length > 2) {
+            let lastRow = nodes[nodes.length-1]
+            lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
+          }
+          console.log("haha")
         }
     }
 }
@@ -239,6 +251,8 @@ export default {
 .browse {
   margin-left: 0px !important;
   text-align: left !important;
+  background: #fff;
+  border-radius: 25px;
 }
 
 .product-desc {

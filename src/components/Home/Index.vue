@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex>
       <slider/>
-      <v-flex xs9 offset-xs1>
+      <v-flex  xs9 offset-xs1>
       <home-content/>
     </v-flex>
     </v-flex>

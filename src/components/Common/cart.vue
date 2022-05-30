@@ -43,7 +43,19 @@
           style="margin-top: 4%"
         class="crt-rw-1">
           <v-col class="ctr-label-1" style="float: left">
-              <img class="product-image" :src="item.item.productImageUrl"/>
+              
+              <table>
+                <tr>
+                  <td>
+                    <img class="product-image" :src="item.item.productImageUrl"/>
+                  </td>
+                  <td class="item-side">
+                    <div class="product-name">
+                       {{item.item.name}}
+                    </div>
+                  </td>
+                </tr>
+              </table>
           </v-col>
           <v-col>
             <div :id="generalPrice+item.item.id" ref="prc" style="float: right">
@@ -293,10 +305,14 @@ export default {
 }
 
 .product-image {
-    width: 50%;
-    margin: 0 auto;
+  width: 80px;
+  margin: 0 auto;
 }
-
+.product-name {
+  width: 10%;
+  margin: 0 auto;
+  font-size: small;
+}
 .product-price {
   font-size: 23px;
 }
@@ -356,5 +372,8 @@ export default {
 }
 #qtnty-incr {
   
+}
+.item-side {
+  font-size: small;
 }
 </style>

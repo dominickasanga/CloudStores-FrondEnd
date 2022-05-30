@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex  xs9 offset-xs2 class=" search">
+    <v-flex  xs8 offset-xs2 class=" search">
       <v-text-field
         class="search"
         append-icon="search"

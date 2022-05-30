@@ -122,16 +122,17 @@ export default {
 <style scoped>
 .item {
   /* padding: 20px; */
-  height: 290px;
+  /* height: 290px;
   width: 290px;
   overflow: hidden;
   float: left;
   margin-top: 8px;
-  margin-right: -25px;
+  margin-right: -25px; */
     /* margin: auto;
   width: 50%;
   border: 3px solid green;
   padding: 10px; */
+  margin-right: auto;
   cursor: pointer;
   position: relative;
   text-align: center;

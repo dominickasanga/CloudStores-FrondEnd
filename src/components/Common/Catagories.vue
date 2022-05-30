@@ -69,7 +69,7 @@ export default {
   overflow: hidden;
   float: left;
   margin-top: 8px;
-  margin-right: 2%;
+  margin-right: auto;
     /* margin: auto;
   width: 50%;
   border: 3px solid green;
@@ -141,7 +141,7 @@ export default {
   justify-content: center; /** X-axis align **/
 }
 .category-layout {
-  margin-left: 3.5%;
+  margin-left: 0.7%;
   margin-top: 0;
   margin-bottom: -25%;
   margin-bottom: 0;

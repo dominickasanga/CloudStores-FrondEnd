@@ -125,6 +125,7 @@
 import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
+import CartService from '../../services/CartService'
 export default {
     components: {
       
@@ -195,6 +196,9 @@ export default {
         }
         this.items = tempArray
         this.$store.dispatch('setTotalPrice', price)
+        this.$store.dispatch('setCartNumber', 
+          await CartService.updateCartNUmber(this.$store.state.user.id)
+        )
         setTimeout(()=>{
           this.removeBottomlineOnLastRow(this.$refs.container)
         }, 100)

@@ -53,6 +53,11 @@
                     <div class="product-name">
                        {{item.item.name}}
                     </div>
+                    <div class="btn-remove"
+                    @click="remove(item.bookmarkId)"
+                    >
+                      remove
+                    </div>
                   </td>
                 </tr>
               </table>
@@ -93,7 +98,9 @@
 
         <v-row class="crt-rw-1">
           <v-col class="ctr-label-1" style="float: left">
-           []
+           <v-btn>
+             checkout
+           </v-btn>
           </v-col>
           <v-col>
           </v-col>
@@ -167,6 +174,10 @@ export default {
     }
     },
     async mounted() {
+      await this.init()
+    },
+    methods: {
+      async init() {
         let price = 0
         let quantity
         this.items = (await BooKmarkService.index({
@@ -177,7 +188,8 @@ export default {
           quantity = item.quantity
           tempArray.push({
             quantity: quantity,
-            item: item.Item
+            item: item.Item,
+            bookmarkId: item.id
           })
           price += parseInt(quantity) * parseInt(item.Item.price)
         }
@@ -186,83 +198,92 @@ export default {
         setTimeout(()=>{
           this.removeBottomlineOnLastRow(this.$refs.container)
         }, 100)
-    },
-    methods: {
-        navigateTo(route) {
-            this.$router.push(route);
-        },
-        async unSetAsBookmarked() {
-          try {
-            this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
-            let cond = !!this.bookmark
-            if(cond)
-            this.$router.go(this.$router.currentRoute)
-          } catch(err) {
-            console.log(err)
-          }
-        },
-        increamentQuantinty(id) {
-          for (let e of this.$refs.qnt) {
-            let elemntId = e.getAttribute("id")
-            if (elemntId == id) {
-              let elemntQuantity = e.innerHTML
-              if(elemntQuantity != 0 || elemntQuantity == 0) {
-                elemntQuantity++
-                e.innerHTML = elemntQuantity
-                this.updatePrice(id,elemntQuantity)
-              }
-            }
-          }
-        },
-        decreamentQuantinty(id) {
-          for (let e of this.$refs.qnt) {
-            let elemntId = e.getAttribute("id")
-            if (elemntId == id) {
-              let elemntQuantity = e.innerHTML
-              if(elemntQuantity != 1) {
-                let oldElemntQuantity = elemntQuantity
-                elemntQuantity--
-                e.innerHTML = elemntQuantity
-                this.updatePrice(id,elemntQuantity,true, oldElemntQuantity)
-              }
-            }
-          }
-        },
-        updatePrice(elId, elQuantity, decrement = false, oldQuantity = 1) {
-          elId = elId.split('Q')[1]
-          for (let e of this.$refs.prc) {
-            let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
-            if (elId == elementSeletedPriceId) {
-              let elPrice = e.innerHTML.split('K')[1]
-              for (let elementTotalPrc of this.$refs.totalPrc) {
-                let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
-                if (elTPrcId == elId) {
-                  elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
-                  let updatedPrice
-                  if (decrement) {
-                    if (oldQuantity > 1) {
-                      updatedPrice = this.total_Price -= elPrice * oldQuantity
-                    } else {
-                      updatedPrice = this.total_Price -= elPrice * elQuantity
-                    }
-                  }
-                  else {
-                    updatedPrice = this.total_Price += elPrice * elQuantity
-                  }
-                  this.$store.dispatch('setTotalPrice', updatedPrice)
-                }
-              }
-            }
-          }
-        },
-        removeBottomlineOnLastRow(containerElement) {
-          let nodes = containerElement.childNodes
-          if(nodes.length > 2) {
-            let lastRow = nodes[nodes.length-1]
-            lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
-          }
-          console.log("haha")
+      },
+      navigateTo(route) {
+          this.$router.push(route);
+      },
+      async unSetAsBookmarked() {
+        try {
+          this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
+          let cond = !!this.bookmark
+          if(cond)
+          this.$router.go(this.$router.currentRoute)
+        } catch(err) {
+          console.log(err)
         }
+      },
+      increamentQuantinty(id) {
+        for (let e of this.$refs.qnt) {
+          let elemntId = e.getAttribute("id")
+          if (elemntId == id) {
+            let elemntQuantity = e.innerHTML
+            if(elemntQuantity != 0 || elemntQuantity == 0) {
+              elemntQuantity++
+              e.innerHTML = elemntQuantity
+              this.updatePrice(id,elemntQuantity)
+            }
+          }
+        }
+      },
+      decreamentQuantinty(id) {
+        for (let e of this.$refs.qnt) {
+          let elemntId = e.getAttribute("id")
+          if (elemntId == id) {
+            let elemntQuantity = e.innerHTML
+            if(elemntQuantity != 1) {
+              let oldElemntQuantity = elemntQuantity
+              elemntQuantity--
+              e.innerHTML = elemntQuantity
+              this.updatePrice(id,elemntQuantity,true, oldElemntQuantity)
+            }
+          }
+        }
+      },
+      updatePrice(elId, elQuantity, decrement = false, oldQuantity = 1) {
+        elId = elId.split('Q')[1]
+        for (let e of this.$refs.prc) {
+          let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
+          if (elId == elementSeletedPriceId) {
+            let elPrice = e.innerHTML.split('K')[1]
+            for (let elementTotalPrc of this.$refs.totalPrc) {
+              let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
+              if (elTPrcId == elId) {
+                elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
+                let updatedPrice
+                if (decrement) {
+                  if (oldQuantity > 1) {
+                    updatedPrice = this.total_Price -= elPrice * oldQuantity
+                  } else {
+                    updatedPrice = this.total_Price -= elPrice * elQuantity
+                  }
+                }
+                else {
+                  updatedPrice = this.total_Price += elPrice * elQuantity
+                }
+                this.$store.dispatch('setTotalPrice', updatedPrice)
+              }
+            }
+          }
+        }
+      },
+      removeBottomlineOnLastRow(containerElement) {
+        let nodes = containerElement.childNodes
+        if(nodes.length > 2) {
+          let lastRow = nodes[nodes.length-1]
+          lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
+        }
+      },
+      async remove(bookmarkId) {
+        try {
+          let bookmark = (await BooKmarkService.delete(bookmarkId)).data
+          let cond = !!bookmark
+          if(cond) {
+            await this.init()
+          }
+        } catch(err) {
+          console.log(err)
+      }
+      }
     }
 }
 </script>
@@ -309,8 +330,8 @@ export default {
   margin: 0 auto;
 }
 .product-name {
-  width: 10%;
-  margin: 0 auto;
+  width:auto;
+  margin: auto;
   font-size: small;
 }
 .product-price {
@@ -375,5 +396,14 @@ export default {
 }
 .item-side {
   font-size: small;
+}
+.btn-remove {
+  margin: auto;
+  margin-top: 10%;
+  font-size: small;
+  cursor:pointer;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+  padding: 0 5px;
 }
 </style>

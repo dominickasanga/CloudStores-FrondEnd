@@ -1,9 +1,9 @@
 <template>
   <v-layout mt-4>
-    <v-flex xs3>
+    <v-flex xs4>
       <categories-list/>
     </v-flex>
-    <v-flex xs8 offset-xs2 class="ml-2">
+    <v-flex xs12>
       <featured-products/>
       <br>
       <categories/>
@@ -44,4 +44,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.main-container {
+  width: max-content;
+}
 </style>

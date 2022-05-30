@@ -1,9 +1,9 @@
 <template>
   <v-layout mt-4>
-    <v-flex xs3>
+    <v-flex xs4>
       <categories-list/>
     </v-flex>
-    <v-flex xs8 offset-xs2 class="ml-2">
+    <v-flex xs12>
       <cart/>
       <br>
       <categories/>

@@ -133,6 +133,11 @@ width: 100%;
   font-weight: bold;
 }
 .flex.offset-xs6 {
-  margin-right: -40%;
+  margin-right: -43%;
+}
+@media (min-width: 0px) {
+  .v-application--is-ltr .flex.offset-xs6 {
+  margin-left: 45%;
+}
 }
 </style>

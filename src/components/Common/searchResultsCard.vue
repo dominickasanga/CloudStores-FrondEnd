@@ -3,6 +3,7 @@
     <v-card
     class="search-card"
     elevation="3"
+    v-if="showSearchResults_Card"
     >
     <v-list-item>
         <v-list-item-content>
@@ -12,7 +13,7 @@
             :key="result.id"
             class="search-item"
             >
-            {{result}}
+            {{result.name}}
         </v-list-item-title>
         </v-list-item-content>
     </v-list-item>
@@ -20,21 +21,35 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex'
 export default {
   name: 'app',
   components: {
   },
   data() {
     return {
-      search_Results: [
-        'dominic kasanga',
-        'alinafe gausi',
-        'mr p',
-        'lola and the sea monster'
-      ]
+      search_Results: this.$store.state.searchResults,
+      showSearchResults_Card: this.$store.state.showSearchResultsCard
     }
-  }
+  },
+  computed: {
+    ...mapState([
+    'searchResults',
+    'showSearchResultsCard'
+    ]),
+   },
+  watch: {
+    searchResults(val, oldVal) {
+    // is triggered whenever the store state changes
+    console.log('do stuff', val, oldVal);
+    this.search_Results = val
+    },
+    showSearchResultsCard(val, oldVal) {
+    // is triggered whenever the store state changes
+    console.log('do stuff', val, oldVal);
+    this.showSearchResults_Card = val
+    },
+   }
 }
 </script>
 
@@ -44,8 +59,8 @@ export default {
   margin-top: -0.001%;
   position: absolute !important;
   z-index: 23;
-  margin-left: 25%;
-  width: 35.4%;
+  margin-left: 24.2%;
+  width: 33.1%;
   text-align: left;
   position:fixed !important;
 }

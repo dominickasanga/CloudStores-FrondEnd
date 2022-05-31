@@ -7,6 +7,8 @@
           append-icon="search"
           label="Search"
           solo
+          @focus="displaySearchResultsCard"
+          @blur="hideSearchResultsCard"
           v-model="search">
         </v-text-field>
       </div>
@@ -38,6 +40,12 @@ export default {
     navigateTo(route){
       this.$router.push(route)
     },
+    displaySearchResultsCard() {
+      this.$store.dispatch('setShowSearchResultsCard', true)
+    },
+    hideSearchResultsCard() {
+      this.$store.dispatch('setShowSearchResultsCard', false)
+    }
   },
     computed: {
     ...mapState([

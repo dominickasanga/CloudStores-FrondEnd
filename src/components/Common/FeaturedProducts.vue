@@ -93,6 +93,7 @@ export default {
       immediate: true,
       async handler (value) {
         this.items = (await itemsService.index(value)).data
+        this.$store.dispatch('setSearchResults', this.items)
       }
     },
     categoryId: {

@@ -34,9 +34,18 @@
                    <tr>
                      <td>
                        <v-btn class="payment-btn btn--secondary"
+                        v-if="!isBookmarked"
                         @click="setAsBookmarked"
                         >
-                        ADD TO CART</v-btn>
+                        ADD TO CART
+                       </v-btn>
+                       <v-btn class="payment-btn btn--secondary"
+                        v-if="isBookmarked"
+                         @click="navigateTo({name: 'view-cart'})"
+                        >
+                        VIEW CART
+                        </v-btn>
+                        
                      </td>
                      <td>
                         <v-btn class="payment-btn btn--secondary button--unbranded"
@@ -56,7 +65,7 @@
               BooKmark
               </v-btn>
 
-                            <v-btn
+              <v-btn
               v-if="isUserLoggedIn && isBookmarked"
               dark
               class="cyan"
@@ -64,10 +73,6 @@
               UN-BooKmark
               </v-btn>
              </v-flex>
-
-
-
-
            </v-layout>
       </div>
     </v-flex>
@@ -156,6 +161,7 @@ export default {
             this.$store.dispatch('setCartNumber', 
               await CartService.updateCartNUmber(this.$store.state.user.id)
             )
+            this.isBookmarked = true
           } catch(err) {
             console.log(err)
           }
@@ -170,6 +176,7 @@ export default {
             this.$store.dispatch('setCartNumber', 
               await CartService.updateCartNUmber(this.$store.state.user.id)
             )
+            this.isBookmarked = false
           } catch(err) {
             console.log(err)
           }

@@ -8,12 +8,13 @@
     <v-list-item>
         <v-list-item-content>
         <v-list-item-title 
-            v-for="result in search_Results"
-            :id="result.id"
-            :key="result.id"
+            v-for="item in search_Results"
+            :id="item.id"
+            :key="item.id"
             class="search-item"
+            @click="loadProduct(item.id, item.name, item.categoryId)"
             >
-            {{result.name}}
+            {{item.name}}
         </v-list-item-title>
         </v-list-item-content>
     </v-list-item>
@@ -22,6 +23,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import categoryService from '../../services/CategoriesService'
 export default {
   name: 'app',
   components: {
@@ -30,6 +32,19 @@ export default {
     return {
       search_Results: this.$store.state.searchResults,
       showSearchResults_Card: this.$store.state.showSearchResultsCard
+    }
+  },
+  methods: {
+    async loadProduct(productId, productName, categoryId) {
+      this.$store.dispatch('setProductId', productId)
+      let categoryName = (await categoryService.show(categoryId)).data.name
+      this.$store.dispatch('setProductName', productName)
+      this.$router.push({
+        name: 'browse-product',
+        params: {
+          categoryName: categoryName,
+          itemId: productId
+        }});
     }
   },
   computed: {

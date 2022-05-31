@@ -44,7 +44,9 @@ export default {
       this.$store.dispatch('setShowSearchResultsCard', true)
     },
     hideSearchResultsCard() {
-      this.$store.dispatch('setShowSearchResultsCard', false)
+      setTimeout(()=> {
+        this.$store.dispatch('setShowSearchResultsCard', false)
+      }, 300)
     }
   },
     computed: {

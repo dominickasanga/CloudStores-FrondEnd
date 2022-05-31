@@ -2,22 +2,21 @@
   <v-layout>
     <v-flex offset-xs6>
       <div>
-
-          <v-layout class="cate-ls">
-              <ul id="example-1" ref="ul">
-                <li class="site-nav__home"
-                id="home_cate"
-                @click="loadCatelog(null)">Home</li>
-                <li v-for="category in categories"
-                class="site-nav__item"
-                :id="category.id"
-                :class="dataFieldClass"
-                @click="loadCatelog(category.id, category.name)"
-                :key="category.id">
-                    {{ category.name }}
-                </li>
-                </ul> 
-           </v-layout>
+      <v-layout class="cate-ls">
+          <ul id="example-1" ref="ul">
+            <li class="site-nav__home"
+            id="home_cate"
+            @click="loadCatelog(null)">Home</li>
+            <li v-for="category in categories"
+            class="site-nav__item"
+            :id="category.id"
+            :class="dataFieldClass"
+            @click="loadCatelog(category.id, category.name)"
+            :key="category.id">
+                {{ category.name }}
+            </li>
+            </ul> 
+        </v-layout>
       </div>
     </v-flex>
   </v-layout>
@@ -99,7 +98,6 @@ export default {
     padding-left: 3px;
     padding-right: 3px;
     width: 100%;
-
     font-weight: 400;
     color: #333;
     font-size: 17px;

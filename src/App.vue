@@ -3,6 +3,7 @@
   <div id="app">
     <v-app>
       <page-header />
+      <search-results-card/>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
@@ -14,12 +15,14 @@
 <script>
 import PageHeader from '@/components/Header.vue'
 import ClientFooter from './components/Common/ClientFooter.vue'
+import SearchResultsCard from './components/Common/searchResultsCard.vue'
 export default {
   name: 'app',
   components: {
     PageHeader,
-    ClientFooter
-  }
+    ClientFooter,
+    SearchResultsCard
+}
 }
 </script>
 

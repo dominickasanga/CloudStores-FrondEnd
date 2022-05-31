@@ -98,6 +98,7 @@ export default {
     categoryId: {
       immediate: true,
       async handler (value) {
+        console.log({value})
         this.items = (await itemsService.index(value)).data
       }
     },

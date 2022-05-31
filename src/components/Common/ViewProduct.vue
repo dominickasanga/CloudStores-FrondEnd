@@ -48,9 +48,7 @@
                         
                      </td>
                      <td>
-                        <v-btn class="payment-btn btn--secondary button--unbranded"
-                        @click="setAsBookmarked"
-                        >
+                        <v-btn class="payment-btn btn--secondary button--unbranded">
                         BUY NOW</v-btn>
                      </td>
                    </tr>

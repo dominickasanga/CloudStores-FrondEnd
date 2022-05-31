@@ -1,13 +1,15 @@
 <template>
   <v-layout>
     <v-flex  xs8 offset-xs2 class=" search">
-      <v-text-field
-        class="search"
-        append-icon="search"
-        label="Search"
-        solo
-        v-model="search">
-      </v-text-field>
+      <div>
+        <v-text-field
+          class="search"
+          append-icon="search"
+          label="Search"
+          solo
+          v-model="search">
+        </v-text-field>
+      </div>
       <div class="cart">
         <v-icon>shopping_cart</v-icon>
         <div

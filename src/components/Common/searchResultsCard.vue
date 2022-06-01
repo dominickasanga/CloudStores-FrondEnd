@@ -58,6 +58,9 @@ export default {
     // is triggered whenever the store state changes
     console.log('do stuff', val, oldVal);
     this.search_Results = val
+     if(!val.length) {
+        this.$store.dispatch('setSearchResults', [{name: "empty results"}])
+     }
     },
     showSearchResultsCard(val, oldVal) {
     // is triggered whenever the store state changes

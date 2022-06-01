@@ -2,11 +2,9 @@
   <v-layout>
     <v-flex offset-xs2>
          <div class="browse view-product-card">
-
            <v-layout>
              <nav-link-category-item/>
            </v-layout>
-
            <v-layout>
              <v-flex>
                <img class="product-image" :src="item.productImageUrl"/>
@@ -103,7 +101,7 @@ export default {
       ])
     },
     watch: {
-      productId: {
+     productId: {
       immediate: true,
       async handler (value) {
         const itemId = value
@@ -119,7 +117,13 @@ export default {
         else
         this.isBookmarked = true
       }
-    }
+     },
+     '$route.query.search': {
+        immediate: true,
+        async handler (value) {
+          this.$store.dispatch('setSearchResults',  (await ItemsService.index(value)).data)
+        }
+     },
     },
     async mounted() {
         // if (!this.isUserLoggedIn) {

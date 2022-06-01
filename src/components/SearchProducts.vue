@@ -26,6 +26,7 @@
 <script>
 import _ from 'lodash'
 import {mapState} from 'vuex'
+import ItemsService from '../services/ItemsService'
 
 export default {
   components: {
@@ -75,8 +76,9 @@ export default {
     }, 700),
     '$route.query.search': {
       immediate: true,
-      handler (value) {
+      async handler (value) {
         this.search = value
+        this.$store.dispatch('setSearchResults', (await ItemsService.index(value)).data)
       }
     }
   }

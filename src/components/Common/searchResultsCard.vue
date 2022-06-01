@@ -31,20 +31,23 @@ export default {
   data() {
     return {
       search_Results: this.$store.state.searchResults,
-      showSearchResults_Card: this.$store.state.showSearchResultsCard
+      showSearchResults_Card: this.$store.state.showSearchResultsCard,
+      resultsEmpty: 'results empty'
     }
   },
   methods: {
     async loadProduct(productId, productName, categoryId) {
-      this.$store.dispatch('setProductId', productId)
-      let categoryName = (await categoryService.show(categoryId)).data.name
-      this.$store.dispatch('setProductName', productName)
-      this.$router.push({
-        name: 'browse-product',
-        params: {
-          categoryName: categoryName,
-          itemId: productId
-        }});
+     if (productName != this.resultsEmpty) {
+            this.$store.dispatch('setProductId', productId)
+            let categoryName = (await categoryService.show(categoryId)).data.name
+            this.$store.dispatch('setProductName', productName)
+            this.$router.push({
+                name: 'browse-product',
+                params: {
+                categoryName: categoryName,
+                itemId: productId
+                }});
+     }
     }
   },
   computed: {
@@ -59,7 +62,7 @@ export default {
     console.log('do stuff', val, oldVal);
     this.search_Results = val
      if(!val.length) {
-        this.$store.dispatch('setSearchResults', [{name: "empty results"}])
+        this.$store.dispatch('setSearchResults', [{name: this.resultsEmpty}])
      }
     },
     showSearchResultsCard(val, oldVal) {

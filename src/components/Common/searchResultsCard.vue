@@ -1,24 +1,26 @@
 
 <template>
+   <div class="search-content">
     <v-card
     class="search-card"
     elevation="3"
     v-if="showSearchResults_Card"
     >
-    <v-list-item>
+    <v-list-item
+      v-for="item in search_Results"
+      :id="item.id"
+      :key="item.id"
+      class="search-item"
+      @click="loadProduct(item.id, item.name, item.categoryId)"
+     >
         <v-list-item-content>
-        <v-list-item-title 
-            v-for="item in search_Results"
-            :id="item.id"
-            :key="item.id"
-            class="search-item"
-            @click="loadProduct(item.id, item.name, item.categoryId)"
-            >
+        <v-list-item-title>
             {{item.name}}
         </v-list-item-title>
         </v-list-item-content>
     </v-list-item>
     </v-card>
+   </div>
 </template>
 
 <script>
@@ -80,12 +82,14 @@ export default {
   margin-top: -0.001%;
   position: absolute !important;
   z-index: 23;
-  margin-left: 24.2%;
-  width: 33.1%;
   text-align: left;
   position:fixed !important;
+  width: inherit;
 }
 .search-item {
   cursor: pointer;
+}
+.search-content {
+  width: 33.1%;
 }
 </style>

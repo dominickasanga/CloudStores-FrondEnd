@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex  xs8 offset-xs2 class=" search">
+    <v-flex  xs8 offset-xs2 class="search">
       <div>
         <v-text-field
           class="search"
@@ -11,15 +11,16 @@
           @blur="hideSearchResultsCard"
           v-model="search">
         </v-text-field>
-      </div>
-      <div class="cart">
-        <v-icon>shopping_cart</v-icon>
-        <div
-          @click="navigateTo({name: 'view-cart'})"
-          class="ct">
-            &#160;&#160;&#160;cart&#160;({{cart_number}})
+        <div class="cart">
+          <v-icon>shopping_cart</v-icon>
+          <div
+            @click="navigateTo({name: 'view-cart'})"
+            class="ct">
+              &#160;&#160;&#160;cart&#160;({{cart_number}})
+          </div>
         </div>
-      </div>  
+      </div>
+      <SearchResultsCard/>
     </v-flex>
   </v-layout>
 </template>
@@ -27,10 +28,12 @@
 import _ from 'lodash'
 import {mapState} from 'vuex'
 import ItemsService from '../services/ItemsService'
+import SearchResultsCard from './Common/searchResultsCard.vue'
 
 export default {
   components: {
-  },
+    SearchResultsCard
+},
   data() {
     return {
       search: '',

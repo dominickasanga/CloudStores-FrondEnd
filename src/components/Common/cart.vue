@@ -256,6 +256,8 @@ export default {
                   this.updateQuantity(item)
                 }
               })
+              elemntQuantity++
+              e.innerHTML = elemntQuantity
             }
           }
         }
@@ -273,6 +275,8 @@ export default {
                     })
                     this.updateQuantity(item, true)
               })
+              elemntQuantity--
+              e.innerHTML = elemntQuantity
             }
           }
         }
@@ -297,7 +301,6 @@ export default {
       },
       checkout() {
         this.items.forEach(item => {
-          // console.log(item)
           try {
             PaymentService.post(
             {

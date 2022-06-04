@@ -71,17 +71,17 @@
             <div style="float: left">
               <v-row class="crt-quant">
                 <v-col>
-                  <div id="qtnty-decr" @click="decreamentQuantinty(generalId+item.item.id)">
+                  <div id="qtnty-decr" @click="decreamentQuantinty(generalId+item.bookmarkId)">
                     -
                   </div>
                 </v-col>
                 <v-col>
-                  <div :id="generalId+item.item.id" ref="qnt">
+                  <div :id="generalId+item.bookmarkId" ref="qnt">
                     {{item.quantity}}
                   </div>
                 </v-col>
                 <v-col>
-                  <div id="qtnty-incr" @click="increamentQuantinty(generalId+item.item.id)">
+                  <div id="qtnty-incr" @click="increamentQuantinty(generalId+item.bookmarkId)">
                     +
                   </div>
                   
@@ -91,14 +91,16 @@
           </v-col>
           <v-col >
             <div :id="generalTotalId+item.item.id" ref="totalPrc" style="float: right">
-              K{{item.item.price * item.quantity}}
+              K{{item.itemTotalPrice}}
             </div>
           </v-col>
         </v-row>
 
         <v-row class="crt-rw-1">
           <v-col class="ctr-label-1" style="float: left">
-           <v-btn>
+           <v-btn
+            @click="checkout()"
+           >
              checkout
            </v-btn>
           </v-col>
@@ -126,6 +128,8 @@ import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
 import CartService from '../../services/CartService'
+import PaymentService from '../../services/PaymentService'
+
 export default {
     components: {
       
@@ -180,19 +184,18 @@ export default {
     methods: {
       async init() {
         let price = 0
-        let quantity
         this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
         let tempArray = []
         for (let item of this.items) {
-          quantity = item.quantity
           tempArray.push({
-            quantity: quantity,
+            quantity: item.quantity,
             item: item.Item,
-            bookmarkId: item.id
+            bookmarkId: item.id,
+            itemTotalPrice: parseInt(item.quantity) * parseInt(item.Item.price)
           })
-          price += parseInt(quantity) * parseInt(item.Item.price)
+          price += parseInt(item.quantity) * parseInt(item.Item.price)
         }
         this.items = tempArray
         this.$store.dispatch('setTotalPrice', price)
@@ -216,60 +219,65 @@ export default {
           console.log(err)
         }
       },
+
+      async updateQuantity(item, drecrement = false) {
+        try {
+          let data 
+          
+          if (drecrement) {
+            data = (await BooKmarkService.put(item.bookmarkId, {
+              quantity: item.quantity--
+            }))
+          } else {
+            data = (await BooKmarkService.put(item.bookmarkId, {
+              quantity: item.quantity++
+            }))
+          }
+
+          if (data) {
+            await this.init()
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+
       increamentQuantinty(id) {
+        let bookmarkID = id.split('Q')[1]
         for (let e of this.$refs.qnt) {
-          let elemntId = e.getAttribute("id")
-          if (elemntId == id) {
+          if (e.getAttribute("id") == id) {
             let elemntQuantity = e.innerHTML
             if(elemntQuantity != 0 || elemntQuantity == 0) {
-              elemntQuantity++
-              e.innerHTML = elemntQuantity
-              this.updatePrice(id,elemntQuantity)
+              this.items.forEach(item => {
+                if (item.bookmarkId == bookmarkID) {
+                  BooKmarkService.put(item.bookmarkId, {
+                    quantity: item.quantity++
+                  })
+                  this.updateQuantity(item)
+                }
+              })
             }
           }
         }
       },
       decreamentQuantinty(id) {
+         let bookmarkID = id.split('Q')[1]
         for (let e of this.$refs.qnt) {
-          let elemntId = e.getAttribute("id")
-          if (elemntId == id) {
+          if (e.getAttribute("id") == id) {
             let elemntQuantity = e.innerHTML
             if(elemntQuantity != 1) {
-              let oldElemntQuantity = elemntQuantity
-              elemntQuantity--
-              e.innerHTML = elemntQuantity
-              this.updatePrice(id,elemntQuantity,true, oldElemntQuantity)
+              this.items.forEach(item => {
+                if (item.bookmarkId == bookmarkID) 
+                    BooKmarkService.put(item.bookmarkId, {
+                      quantity: item.quantity--
+                    })
+                    this.updateQuantity(item, true)
+              })
             }
           }
         }
       },
-      updatePrice(elId, elQuantity, decrement = false, oldQuantity = 1) {
-        elId = elId.split('Q')[1]
-        for (let e of this.$refs.prc) {
-          let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
-          if (elId == elementSeletedPriceId) {
-            let elPrice = e.innerHTML.split('K')[1]
-            for (let elementTotalPrc of this.$refs.totalPrc) {
-              let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
-              if (elTPrcId == elId) {
-                elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
-                let updatedPrice
-                if (decrement) {
-                  if (oldQuantity > 1) {
-                    updatedPrice = this.total_Price -= elPrice * oldQuantity
-                  } else {
-                    updatedPrice = this.total_Price -= elPrice * elQuantity
-                  }
-                }
-                else {
-                  updatedPrice = this.total_Price += elPrice * elQuantity
-                }
-                this.$store.dispatch('setTotalPrice', updatedPrice)
-              }
-            }
-          }
-        }
-      },
+
       removeBottomlineOnLastRow(containerElement) {
         let nodes = containerElement.childNodes
         if(nodes.length > 2) {
@@ -280,13 +288,29 @@ export default {
       async remove(bookmarkId) {
         try {
           let bookmark = (await BooKmarkService.delete(bookmarkId)).data
-          let cond = !!bookmark
-          if(cond) {
+          if(bookmark) {
             await this.init()
           }
         } catch(err) {
           console.log(err)
       }
+      },
+      checkout() {
+        this.items.forEach(item => {
+          // console.log(item)
+          try {
+            PaymentService.post(
+            {
+              cart_id: 78,
+              customer_id: 12,
+              item_id: item.item.id,
+
+            }
+          )
+          } catch (err) {
+            console.log(err)
+          }
+        });
       }
     }
 }

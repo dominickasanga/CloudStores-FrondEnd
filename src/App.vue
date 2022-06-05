@@ -18,8 +18,8 @@ export default {
   name: 'app',
   components: {
     PageHeader,
-    ClientFooter
-  }
+    ClientFooter,
+}
 }
 </script>
 

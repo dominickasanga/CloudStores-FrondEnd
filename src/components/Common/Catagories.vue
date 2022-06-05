@@ -49,12 +49,12 @@ export default {
     this.categories = (await categoriesService.index()).data
   },
   watch: {
-    '$route.query.search': {
-      immediate: true,
-      async handler (value) {
-        this.categories = (await categoriesService.index(value)).data
-      }
-    }
+    // '$route.query.search': {
+    //   immediate: true,
+    //   async handler (value) {
+    //     this.categories = (await categoriesService.index(value)).data
+    //   }
+    // }
   }
 }
 </script>

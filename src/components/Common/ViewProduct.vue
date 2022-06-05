@@ -2,11 +2,9 @@
   <v-layout>
     <v-flex offset-xs2>
          <div class="browse view-product-card">
-
            <v-layout>
              <nav-link-category-item/>
            </v-layout>
-
            <v-layout>
              <v-flex>
                <img class="product-image" :src="item.productImageUrl"/>
@@ -34,14 +32,21 @@
                    <tr>
                      <td>
                        <v-btn class="payment-btn btn--secondary"
+                        v-if="!isBookmarked"
                         @click="setAsBookmarked"
                         >
-                        ADD TO CART</v-btn>
+                        ADD TO CART
+                       </v-btn>
+                       <v-btn class="payment-btn btn--secondary"
+                        v-if="isBookmarked"
+                         @click="navigateTo({name: 'view-cart'})"
+                        >
+                        VIEW CART
+                        </v-btn>
+                        
                      </td>
                      <td>
-                        <v-btn class="payment-btn btn--secondary button--unbranded"
-                        @click="setAsBookmarked"
-                        >
+                        <v-btn class="payment-btn btn--secondary button--unbranded">
                         BUY NOW</v-btn>
                      </td>
                    </tr>
@@ -56,7 +61,7 @@
               BooKmark
               </v-btn>
 
-                            <v-btn
+              <v-btn
               v-if="isUserLoggedIn && isBookmarked"
               dark
               class="cyan"
@@ -64,10 +69,6 @@
               UN-BooKmark
               </v-btn>
              </v-flex>
-
-
-
-
            </v-layout>
       </div>
     </v-flex>
@@ -100,7 +101,7 @@ export default {
       ])
     },
     watch: {
-      productId: {
+     productId: {
       immediate: true,
       async handler (value) {
         const itemId = value
@@ -116,7 +117,13 @@ export default {
         else
         this.isBookmarked = true
       }
-    }
+     },
+     '$route.query.search': {
+        immediate: true,
+        async handler (value) {
+          this.$store.dispatch('setSearchResults',  (await ItemsService.index(value)).data)
+        }
+     },
     },
     async mounted() {
         // if (!this.isUserLoggedIn) {
@@ -156,6 +163,7 @@ export default {
             this.$store.dispatch('setCartNumber', 
               await CartService.updateCartNUmber(this.$store.state.user.id)
             )
+            this.isBookmarked = true
           } catch(err) {
             console.log(err)
           }
@@ -170,6 +178,7 @@ export default {
             this.$store.dispatch('setCartNumber', 
               await CartService.updateCartNUmber(this.$store.state.user.id)
             )
+            this.isBookmarked = false
           } catch(err) {
             console.log(err)
           }

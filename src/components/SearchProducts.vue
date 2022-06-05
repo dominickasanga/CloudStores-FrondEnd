@@ -1,31 +1,39 @@
 <template>
   <v-layout>
-    <v-flex  xs8 offset-xs2 class=" search">
-      <v-text-field
-        class="search"
-        append-icon="search"
-        label="Search"
-        solo
-        v-model="search">
-      </v-text-field>
-      <div class="cart">
-        <v-icon>shopping_cart</v-icon>
-        <div
-          @click="navigateTo({name: 'view-cart'})"
-          class="ct">
-            &#160;&#160;&#160;cart&#160;({{cart_number}})
+    <v-flex  xs8 offset-xs2 class="search">
+      <div>
+        <v-text-field
+          class="search"
+          append-icon="search"
+          label="Search"
+          solo
+          @focus="displaySearchResultsCard"
+          @blur="hideSearchResultsCard"
+          v-model="search">
+        </v-text-field>
+        <div class="cart">
+          <v-icon>shopping_cart</v-icon>
+          <div
+            @click="navigateTo({name: 'view-cart'})"
+            class="ct">
+              &#160;&#160;&#160;cart&#160;({{cart_number}})
+          </div>
         </div>
-      </div>  
+      </div>
+      <SearchResultsCard/>
     </v-flex>
   </v-layout>
 </template>
 <script>
 import _ from 'lodash'
 import {mapState} from 'vuex'
+import ItemsService from '../services/ItemsService'
+import SearchResultsCard from './Common/searchResultsCard.vue'
 
 export default {
   components: {
-  },
+    SearchResultsCard
+},
   data() {
     return {
       search: '',
@@ -36,6 +44,14 @@ export default {
     navigateTo(route){
       this.$router.push(route)
     },
+    displaySearchResultsCard() {
+      this.$store.dispatch('setShowSearchResultsCard', true)
+    },
+    hideSearchResultsCard() {
+      setTimeout(()=> {
+        this.$store.dispatch('setShowSearchResultsCard', false)
+      }, 300)
+    }
   },
     computed: {
     ...mapState([
@@ -63,8 +79,9 @@ export default {
     }, 700),
     '$route.query.search': {
       immediate: true,
-      handler (value) {
+      async handler (value) {
         this.search = value
+        this.$store.dispatch('setSearchResults', (await ItemsService.index(value)).data)
       }
     }
   }

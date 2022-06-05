@@ -18,7 +18,9 @@ export default new Vuex.Store({
         productId: null,
         productName: null,
         cartNumber: 0,
-        totalPrice: 0
+        totalPrice: 0,
+        searchResults: null,
+        showSearchResultsCard: false
     },
 
     mutations: {
@@ -51,6 +53,12 @@ export default new Vuex.Store({
         },
         setTotalPrice (state, _totalPrice) {
             state.totalPrice = _totalPrice
+        },
+        setSearchResults (state, _searchResults) {
+            state.searchResults = _searchResults
+        },
+        setShowSearchResultsCard (state, _showSearchResultsCard) {
+            state.showSearchResultsCard = _showSearchResultsCard
         }
     },
 
@@ -78,6 +86,12 @@ export default new Vuex.Store({
         },
         setTotalPrice({commit}, _totalPrice) {
             commit('setTotalPrice', _totalPrice)
+        },
+        setSearchResults({commit}, _searchResults) {
+            commit('setSearchResults', _searchResults)
+        },
+        setShowSearchResultsCard({commit}, _showSearchResultsCard) {
+            commit('setShowSearchResultsCard', _showSearchResultsCard)
         }
     }
 })

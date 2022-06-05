@@ -53,6 +53,11 @@
                     <div class="product-name">
                        {{item.item.name}}
                     </div>
+                    <div class="btn-remove"
+                    @click="remove(item.bookmarkId)"
+                    >
+                      remove
+                    </div>
                   </td>
                 </tr>
               </table>
@@ -66,17 +71,17 @@
             <div style="float: left">
               <v-row class="crt-quant">
                 <v-col>
-                  <div id="qtnty-decr" @click="decreamentQuantinty(generalId+item.item.id)">
+                  <div id="qtnty-decr" @click="decreamentQuantinty(generalId+item.bookmarkId)">
                     -
                   </div>
                 </v-col>
                 <v-col>
-                  <div :id="generalId+item.item.id" ref="qnt">
+                  <div :id="generalId+item.bookmarkId" ref="qnt">
                     {{item.quantity}}
                   </div>
                 </v-col>
                 <v-col>
-                  <div id="qtnty-incr" @click="increamentQuantinty(generalId+item.item.id)">
+                  <div id="qtnty-incr" @click="increamentQuantinty(generalId+item.bookmarkId)">
                     +
                   </div>
                   
@@ -86,14 +91,18 @@
           </v-col>
           <v-col >
             <div :id="generalTotalId+item.item.id" ref="totalPrc" style="float: right">
-              K{{item.item.price * item.quantity}}
+              K{{item.itemTotalPrice}}
             </div>
           </v-col>
         </v-row>
 
         <v-row class="crt-rw-1">
           <v-col class="ctr-label-1" style="float: left">
-           []
+           <v-btn
+            @click="checkout()"
+           >
+             checkout
+           </v-btn>
           </v-col>
           <v-col>
           </v-col>
@@ -118,6 +127,9 @@
 import {mapState} from 'vuex'
 import ItemsService from '../../services/ItemsService'
 import BooKmarkService from '../../services/BookmarkService'
+import CartService from '../../services/CartService'
+import PaymentService from '../../services/PaymentService'
+
 export default {
     components: {
       
@@ -167,102 +179,142 @@ export default {
     }
     },
     async mounted() {
+      await this.init()
+    },
+    methods: {
+      async init() {
         let price = 0
-        let quantity
         this.items = (await BooKmarkService.index({
           userId: this.$store.state.user.id
         })).data
         let tempArray = []
         for (let item of this.items) {
-          quantity = item.quantity
           tempArray.push({
-            quantity: quantity,
-            item: item.Item
+            quantity: item.quantity,
+            item: item.Item,
+            bookmarkId: item.id,
+            itemTotalPrice: parseInt(item.quantity) * parseInt(item.Item.price)
           })
-          price += parseInt(quantity) * parseInt(item.Item.price)
+          price += parseInt(item.quantity) * parseInt(item.Item.price)
         }
         this.items = tempArray
         this.$store.dispatch('setTotalPrice', price)
+        this.$store.dispatch('setCartNumber', 
+          await CartService.updateCartNUmber(this.$store.state.user.id)
+        )
         setTimeout(()=>{
           this.removeBottomlineOnLastRow(this.$refs.container)
         }, 100)
-    },
-    methods: {
-        navigateTo(route) {
-            this.$router.push(route);
-        },
-        async unSetAsBookmarked() {
+      },
+      navigateTo(route) {
+          this.$router.push(route);
+      },
+      async unSetAsBookmarked() {
+        try {
+          this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
+          let cond = !!this.bookmark
+          if(cond)
+          this.$router.go(this.$router.currentRoute)
+        } catch(err) {
+          console.log(err)
+        }
+      },
+
+      async updateQuantity(item, drecrement = false) {
+        try {
+          let data 
+          
+          if (drecrement) {
+            data = (await BooKmarkService.put(item.bookmarkId, {
+              quantity: item.quantity--
+            }))
+          } else {
+            data = (await BooKmarkService.put(item.bookmarkId, {
+              quantity: item.quantity++
+            }))
+          }
+
+          if (data) {
+            await this.init()
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+
+      increamentQuantinty(id) {
+        let bookmarkID = id.split('Q')[1]
+        for (let e of this.$refs.qnt) {
+          if (e.getAttribute("id") == id) {
+            let elemntQuantity = e.innerHTML
+            if(elemntQuantity != 0 || elemntQuantity == 0) {
+              this.items.forEach(item => {
+                if (item.bookmarkId == bookmarkID) {
+                  BooKmarkService.put(item.bookmarkId, {
+                    quantity: item.quantity++
+                  })
+                  this.updateQuantity(item)
+                }
+              })
+              elemntQuantity++
+              e.innerHTML = elemntQuantity
+            }
+          }
+        }
+      },
+      decreamentQuantinty(id) {
+         let bookmarkID = id.split('Q')[1]
+        for (let e of this.$refs.qnt) {
+          if (e.getAttribute("id") == id) {
+            let elemntQuantity = e.innerHTML
+            if(elemntQuantity != 1) {
+              this.items.forEach(item => {
+                if (item.bookmarkId == bookmarkID) 
+                    BooKmarkService.put(item.bookmarkId, {
+                      quantity: item.quantity--
+                    })
+                    this.updateQuantity(item, true)
+              })
+              elemntQuantity--
+              e.innerHTML = elemntQuantity
+            }
+          }
+        }
+      },
+
+      removeBottomlineOnLastRow(containerElement) {
+        let nodes = containerElement.childNodes
+        if(nodes.length > 2) {
+          let lastRow = nodes[nodes.length-1]
+          lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
+        }
+      },
+      async remove(bookmarkId) {
+        try {
+          let bookmark = (await BooKmarkService.delete(bookmarkId)).data
+          if(bookmark) {
+            await this.init()
+          }
+        } catch(err) {
+          console.log(err)
+      }
+      },
+      checkout() {
+        this.items.forEach(item => {
           try {
-            this.bookmark = (await BooKmarkService.delete(this.bookmark[0].id)).data
-            let cond = !!this.bookmark
-            if(cond)
-            this.$router.go(this.$router.currentRoute)
-          } catch(err) {
+            PaymentService.post(
+            {
+              cart_id: 78,
+              customer_id: 12,
+              item_id: item.item.id,
+
+            }
+          )
+          } catch (err) {
             console.log(err)
           }
-        },
-        increamentQuantinty(id) {
-          for (let e of this.$refs.qnt) {
-            let elemntId = e.getAttribute("id")
-            if (elemntId == id) {
-              let elemntQuantity = e.innerHTML
-              if(elemntQuantity != 0 || elemntQuantity == 0) {
-                elemntQuantity++
-                e.innerHTML = elemntQuantity
-                this.updatePrice(id,elemntQuantity)
-              }
-            }
-          }
-        },
-        decreamentQuantinty(id) {
-          for (let e of this.$refs.qnt) {
-            let elemntId = e.getAttribute("id")
-            if (elemntId == id) {
-              let elemntQuantity = e.innerHTML
-              if(elemntQuantity != 1) {
-                let oldElemntQuantity = elemntQuantity
-                elemntQuantity--
-                e.innerHTML = elemntQuantity
-                this.updatePrice(id,elemntQuantity,true, oldElemntQuantity)
-              }
-            }
-          }
-        },
-        updatePrice(elId, elQuantity, decrement = false, oldQuantity = 1) {
-          elId = elId.split('Q')[1]
-          for (let e of this.$refs.prc) {
-            let elementSeletedPriceId =  e.getAttribute("id").split('P')[1]
-            if (elId == elementSeletedPriceId) {
-              let elPrice = e.innerHTML.split('K')[1]
-              for (let elementTotalPrc of this.$refs.totalPrc) {
-                let elTPrcId = elementTotalPrc.getAttribute("id").split('T')[1]
-                if (elTPrcId == elId) {
-                  elementTotalPrc.innerHTML = "K"+ elPrice * elQuantity
-                  let updatedPrice
-                  if (decrement) {
-                    if (oldQuantity > 1) {
-                      updatedPrice = this.total_Price -= elPrice * oldQuantity
-                    } else {
-                      updatedPrice = this.total_Price -= elPrice * elQuantity
-                    }
-                  }
-                  else {
-                    updatedPrice = this.total_Price += elPrice * elQuantity
-                  }
-                  this.$store.dispatch('setTotalPrice', updatedPrice)
-                }
-              }
-            }
-          }
-        },
-        removeBottomlineOnLastRow(containerElement) {
-          let nodes = containerElement.childNodes
-          if(nodes.length > 2) {
-            let lastRow = nodes[nodes.length-1]
-            lastRow.setAttribute("style","border-bottom: none; margin-top: 4%;")
-          }
-          console.log("haha")
-        }
+        });
+      }
     }
 }
 </script>
@@ -309,8 +361,8 @@ export default {
   margin: 0 auto;
 }
 .product-name {
-  width: 10%;
-  margin: 0 auto;
+  width:auto;
+  margin: auto;
   font-size: small;
 }
 .product-price {
@@ -375,5 +427,14 @@ export default {
 }
 .item-side {
   font-size: small;
+}
+.btn-remove {
+  margin: auto;
+  margin-top: 10%;
+  font-size: small;
+  cursor:pointer;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+  padding: 0 5px;
 }
 </style>
